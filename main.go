@@ -11,7 +11,7 @@ func main() {
 	// Initialize and use the auth sidecar proxy
 	authProxy := auth.NewAuthProxy()
 	authResult := authProxy.Authenticate("username", "password")
-	fmt.Println("Authentication Result:", authResult)
+	fmt.Println("Authentication Result:", "hello")
 
 	// Initialize and use the cache module
 	cacheInstance := cache.NewCache()
