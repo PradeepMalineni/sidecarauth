@@ -1,13 +1,6 @@
-package main
+package auth
 
-import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
-	"strings"
-)
-
+/*
 type TokenResponse struct {
 	token_type   string `json:"token_type"`
 	access_token string `json:"access_token"`
@@ -18,8 +11,11 @@ type TokenResponse struct {
 
 type ErrorResponse struct {
 	Error string `json:"error"`
-}
+}*/
 
+var X string = "checkscope"
+
+/*
 func main() {
 
 	url := "https://apiidp-enterprise1-sandbox.wellsfargo.com/oauth/token"
@@ -74,3 +70,4 @@ func handleError(body []byte) {
 
 	}
 }
+*/
