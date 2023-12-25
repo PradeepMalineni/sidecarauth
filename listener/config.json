@@ -1,0 +1,6 @@
+{
+  "targetURL": "http://ip-api.com/json/",
+  "serverPort": 8443,
+  "certFile": "/Users/siva/sidecarauth/certs/server.crt",
+  "keyFile": "/Users/siva/sidecarauth/certs/server.key"
+}
