@@ -2,6 +2,7 @@ package utils
 
 import (
 	"crypto/x509"
+	"log"
 	"os"
 	"time"
 )
@@ -19,6 +20,6 @@ func LoadTrustStore(trustStoreFile string) (*x509.CertPool, error) {
 
 	certPool := x509.NewCertPool()
 	certPool.AppendCertsFromPEM(pemData)
-
+	log.Print("trust pool", certPool)
 	return certPool, nil
 }

@@ -60,7 +60,7 @@ func main() {
 	}
 
 	fmt.Printf("Proxy server listening on %s...\n", server.Addr)
-	err = server.ListenAndServeTLS(cfg.CertFile, cfg.KeyFile)
+	err = server.ListenAndServe()
 	if err != nil {
 		log.Fatal("Error starting server:", err)
 	}

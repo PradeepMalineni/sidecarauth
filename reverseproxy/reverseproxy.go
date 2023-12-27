@@ -66,11 +66,11 @@ func (rp *ReverseProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// Perform certificate verification for the first time
 		log.Print("Cache not Found")
 
-		err := rp.checkCertificate(rp.target)
+		//err := rp.checkCertificate(rp.target)
 
-		if err != nil {
+		/*if err != nil {
 			log.Printf("Error verifying certificate: %v", err)
-		}
+		}*/
 		// Add the entry to the cache
 		rp.certCache.Store(rp.target.Host, &utils.CacheEntry{LastVerified: time.Now()})
 	}
@@ -85,7 +85,10 @@ func (rp *ReverseProxy) checkCertificate(target *url.URL) error {
 	conn, err := tls.Dial("tcp", target.Host, &tls.Config{
 		InsecureSkipVerify: true,
 		//RootCAs:            rp.trustStore,
+
 	})
+	log.Print("In cert verify funcx")
+
 	if err != nil {
 		return nil
 	}

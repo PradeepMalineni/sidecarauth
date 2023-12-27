@@ -1,9 +1,9 @@
 {
   "targetURL": "https://127.0.0.1:8445/api",
   "serverPort": 8443,
-  "certFile": "/Users/siva/sidecarauth/certs/server.crt",
-  "keyFile": "/Users/siva/sidecarauth/certs/server.key",
-  "trustStoreFile": "/Users/siva/sidecarauth/certs/truststore.pem"
+  "certFile": "/Users/bhumi/goapp/sidecarauth/certs/server.crt",
+  "keyFile": "/Users/bhumi/goapp/sidecarauth/certs/server.key",
+  "trustStoreFile": "/Users/bhumi/goapp/sidecarauth/certs/truststore.pem"
 
 }
 
