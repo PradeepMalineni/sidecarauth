@@ -1,0 +1,92 @@
+package main
+
+import (
+	"crypto/tls"
+	"crypto/x509"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"os"
+)
+
+// Configuration is a struct to hold the configuration parameters.
+type Configuration struct {
+	TargetURL      string `json:"targetURL"`
+	ServerPort     int    `json:"serverPort"`
+	CertFile       string `json:"certFile"`
+	KeyFile        string `json:"keyFile"`
+	TrustStoreFile string `json:"trustStoreFile"`
+}
+
+// ReverseProxy is a struct that implements the http.Handler interface
+// and is used for forwarding requests to another HTTP service.
+type ReverseProxy struct {
+	target *url.URL
+	proxy  *httputil.ReverseProxy
+}
+
+func NewReverseProxy(targetURL string, 	 string) (*ReverseProxy, error) {
+	target, err := url.Parse(targetURL)
+	if err != nil {
+		return nil, err
+	}
+
+	// Load the custom trust store
+	trustStore, err := loadTrustStore(trustStoreFile)
+	if err != nil {
+		return nil, err
+	}
+
+	// Configure TLS with the custom trust store
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			RootCAs: trustStore,
+		},
+	}
+
+	return &ReverseProxy{
+		target: target,
+		proxy:  httputil.NewSingleHostReverseProxy(target),
+	}, nil
+}
+
+func (rp *ReverseProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// Log the incoming request
+	log.Printf("Incoming Request: %s %s", r.Method, r.URL.Path)
+
+	// Forward the request to the target service
+	rp.proxy.ServeHTTP(w, r)
+}
+
+func loadTrustStore(trustStoreFile string) (*x509.CertPool, error) {
+	pemData, err := os.ReadFile(trustStoreFile)
+	if err != nil {
+		return nil, err
+	}
+
+	certPool := x509.NewCertPool()
+	certPool.AppendCertsFromPEM(pemData)
+
+	return certPool, nil
+}
+
+func loadConfig(filename string) (*Configuration, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	config := &Configuration{}
+	err = decoder.Decode(config)
+	if err != nil {
+		return nil, err
+	}
+
+	return config, nil
+}
+

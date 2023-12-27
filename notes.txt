@@ -1,0 +1,13 @@
+Listener should be on https - API https calls with mTLS 
+create a pem 
+
+cat cert.cer > my_cert.pem      
+
+proxy/
+|-- main.go
+|-- reverseproxy/
+|   |-- reverseproxy.go
+|-- config/
+|   |-- config.go
+|-- utils/
+|   |-- tls.go
