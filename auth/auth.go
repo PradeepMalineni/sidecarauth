@@ -45,7 +45,11 @@ func GetAccessToken() (TokenResponse, error) {
 	defer mu.Unlock()
 
 	// Check if the token is expired or about to expire
+
 	now := time.Now().Unix()
+	fmt.Println("now time", now)
+	fmt.Println("ExpiryTime", tokenResponse.ExpiresIn)
+	fmt.Println("difference left", tokenResponse.ExpiresIn-now)
 	if now >= tokenResponse.ExpiresIn {
 		// Token is expired or about to expire, refresh it
 		getAccessToken()

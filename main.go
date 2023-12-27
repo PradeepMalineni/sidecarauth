@@ -46,28 +46,38 @@ func main() {
 	}
 
 	auth.Initialize(config.AuthConfig.TokenURL, config.AuthConfig.AuthorizationHeader)
-	tokenResponse, err := auth.GetAccessToken()
-	if err != nil {
-		log.Fatal(err) // Handle the error by logging and exiting
-	}
+	http.HandleFunc("/listener-service", func(w http.ResponseWriter, r *http.Request) {
+		tokenResponse, err := auth.GetAccessToken()
+		if err != nil {
+			http.Error(w, "Error getting access token", http.StatusInternalServerError)
+			return
+		}
 
-	// Access fields from the tokenResponse as needed
-	fmt.Println("Main-TokenType:", tokenResponse.TokenType)
-	fmt.Println("Main-Access Token:", tokenResponse.AccessToken)
-	fmt.Println("Main-Issued_at:", tokenResponse.IssuedAt)
-	fmt.Println("Main-Expires In:", tokenResponse.ExpiresIn)
-	fmt.Println("Main-Scope:", tokenResponse.Scope)
+		// Access fields from the tokenResponse as needed
+		fmt.Println("Main-TokenType:", tokenResponse.TokenType)
+		fmt.Println("Main-Access Token:", tokenResponse.AccessToken)
+		fmt.Println("Main-Issued_at:", tokenResponse.IssuedAt)
+		fmt.Println("Main-Expires In:", tokenResponse.ExpiresIn)
+		fmt.Println("Main-Scope:", tokenResponse.Scope)
 
-	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, this is the Go HTTP Listener!")
+		responseJSON, err := json.Marshal(tokenResponse)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		// Set the Content-Type header and write the JSON response
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(responseJSON)
+
 	})
 
 	// Specify the port to listen on
-	port := 8080
+	port := 8090
 
 	// Start the HTTP server
 	fmt.Printf("Go HTTP Listener is listening on port %d...\n", port)
-	http.HandleFunc("/generate-token", handler)
+	//http.HandleFunc("/generate-token", handler)
 	http.ListenAndServe(":8090", nil)
 
 }

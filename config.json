@@ -1,7 +1,7 @@
 {
     "AuthConfig":{
         
-        "TokenURL":"https://api-enterprise1-sandbox.wellsfargo.com/oauth/token",
+        "TokenURL":"http://127.0.0.1:8080/generate-token",
         "AuthorizationHeader":"Basic 123abc"
     },
     "ListenerConfig":{},
