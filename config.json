@@ -1,0 +1,9 @@
+{
+    "AuthConfig":{
+        
+        "TokenURL":"https://api-enterprise1-sandbox.wellsfargo.com/oauth/token",
+        "AuthorizationHeader":"Basic 123abc"
+    },
+    "ListenerConfig":{},
+    "ServiceConfig":{}
+}
