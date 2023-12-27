@@ -1,5 +1,5 @@
 {
-  "targetURL": "https://127.0.0.1:8445/api",
+  "targetURL": "http://127.0.0.1:8445",
   "serverPort": 8443,
   "certFile": "/Users/siva/sidecarauth/certs/server.crt",
   "keyFile": "/Users/siva/sidecarauth/certs/server.key",
