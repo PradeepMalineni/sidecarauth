@@ -49,7 +49,7 @@ func main() {
 	//test_svcs.TestServices()
 
 	// Create a reverse proxy that forwards requests to another service with a custom trust store
-	proxy, err := reverseproxy.NewReverseProxy(cfg.TargetURL)
+	proxy, err := reverseproxy.NewReverseProxy(cfg.TargetURL, cfg.TrustStoreFile)
 	if err != nil {
 		log.Fatal("Error creating reverse proxy:", err)
 	}

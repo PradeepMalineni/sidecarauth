@@ -1,9 +1,10 @@
 {
-  "targetURL": "http://127.0.0.1:8445",
+  
+  "targetURL": "https://localhost:8445",
   "serverPort": 8443,
   "certFile": "/Users/siva/sidecarauth/certs/server.crt",
   "keyFile": "/Users/siva/sidecarauth/certs/server.key",
-  "trustStoreFile": "/Users/siva/sidecarauth/certs/truststore.pem"
+  "trustStoreFile": "/Users/siva/sidecarauth/certs/cert.pem"
 
 }
 
