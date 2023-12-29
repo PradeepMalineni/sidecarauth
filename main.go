@@ -4,49 +4,23 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"sidecarauth/auth"
+	"sidecarauth/config"
+	"sidecarauth/service"
 )
-
-type AuthConfig struct {
-	TokenURL            string `json:"TokenURL"`
-	AuthorizationHeader string `json:"AuthorizationHeader"`
-}
-
-// Config struct for overall configuration
-type Config struct {
-	AuthConfig     AuthConfig  `json:"AuthConfig"`
-	ListenerConfig interface{} `json:"ListenerConfig"` // Adjust the type as needed
-	ServiceConfig  interface{} `json:"ServiceConfig"`  // Adjust the type as needed
-}
-
-func LoadConfig(configPath string) (Config, error) {
-	var config Config
-
-	data, err := os.ReadFile(configPath)
-	if err != nil {
-		return config, err
-	}
-
-	err = json.Unmarshal(data, &config)
-	if err != nil {
-		return config, err
-	}
-
-	return config, nil
-}
 
 func main() {
 	configPath := "config.json"
-	config, err := LoadConfig(configPath)
+	config, err := config.LoadConfig(configPath)
 	if err != nil {
 		log.Fatal("Error loading configuration:", err)
 	}
 
 	auth.Initialize(config.AuthConfig.TokenURL, config.AuthConfig.AuthorizationHeader)
-	http.HandleFunc("/listener-service", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
 		tokenResponse, err := auth.GetAccessToken()
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
@@ -69,15 +43,31 @@ func main() {
 		// Set the Content-Type header and write the JSON response
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(responseJSON)
-
+		payload, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			fmt.Println("Error reading request body:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+		httpMethod := r.Method
+		contentType := r.Header.Get("Content-Type")
+		if contentType == "" {
+			contentType = "NA"
+		}
+		formattedResponse, err := service.MakeRequest(config.ServiceConfig.ApiURL, config.ServiceConfig.CertFile, config.ServiceConfig.KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
+		if err != nil {
+			// Handle the error as needed
+			fmt.Println("Error making request:", err)
+			return
+		}
+		fmt.Fprintf(w, "\n\nFormatted Response: %s", formattedResponse)
 	})
 
 	// Specify the port to listen on
-	port := 8090
+	port := config.ListenerConfig.PortNumber
 
 	// Start the HTTP server
-	fmt.Printf("Go HTTP Listener is listening on port %d...\n", port)
-	//http.HandleFunc("/generate-token", handler)
-	http.ListenAndServe(":8090", nil)
+	fmt.Printf("Go HTTP Listener is listening on port %s...\n", port)
+	http.ListenAndServe(":"+port, nil)
 
 }

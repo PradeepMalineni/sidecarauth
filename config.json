@@ -4,6 +4,13 @@
         "TokenURL":"http://127.0.0.1:8080/generate-token",
         "AuthorizationHeader":"Basic 123abc"
     },
-    "ListenerConfig":{},
-    "ServiceConfig":{}
+    "ListenerConfig":{
+        "ListenerURI":"/listener-service",
+        "PortNumber":"8090"
+    },
+    "ServiceConfig":{
+        "ApiURL":"https://127.0.0.1:8445/api",
+        "CertFile":"/Users/bhumi/goapp/server.cer",
+        "KeyFile":"/Users/bhumi/goapp/server.key"
+    }
 }
