@@ -4,7 +4,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"sidecarauth/auth"
@@ -28,11 +28,11 @@ func main() {
 		}
 
 		// Access fields from the tokenResponse as needed
-		fmt.Println("Main-TokenType:", tokenResponse.TokenType)
-		fmt.Println("Main-Access Token:", tokenResponse.AccessToken)
-		fmt.Println("Main-Issued_at:", tokenResponse.IssuedAt)
-		fmt.Println("Main-Expires In:", tokenResponse.ExpiresIn)
-		fmt.Println("Main-Scope:", tokenResponse.Scope)
+		//fmt.Println("Main-TokenType:", tokenResponse.TokenType)
+		//fmt.Println("Main-Access Token:", tokenResponse.AccessToken)
+		//fmt.Println("Main-Issued_at:", tokenResponse.IssuedAt)
+		//fmt.Println("Main-Expires In:", tokenResponse.ExpiresIn)
+		//fmt.Println("Main-Scope:", tokenResponse.Scope)
 
 		responseJSON, err := json.Marshal(tokenResponse)
 		if err != nil {
@@ -43,7 +43,7 @@ func main() {
 		// Set the Content-Type header and write the JSON response
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(responseJSON)
-		payload, err := ioutil.ReadAll(r.Body)
+		payload, err := io.ReadAll(r.Body)
 		if err != nil {
 			fmt.Println("Error reading request body:", err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)

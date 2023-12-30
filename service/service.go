@@ -12,7 +12,7 @@ import (
 
 // MakeRequest makes a request to the server
 func MakeRequest(apiurl, certFile, keyFile, authToken, httpMethod, contentType, payload string) (string, error) {
-	fmt.Println("httpMethod", httpMethod)
+	//fmt.Println("httpMethod", httpMethod)
 	// Create a TLS configuration
 	tlsConfig := &tls.Config{
 		InsecureSkipVerify: true, // Set to true to skip server certificate verification
@@ -67,8 +67,8 @@ func MakeRequest(apiurl, certFile, keyFile, authToken, httpMethod, contentType, 
 	if err != nil {
 		return "", fmt.Errorf("error formatting JSON response: %v", err)
 	}
-	fmt.Println("Response Status:", resp.Status)
-	fmt.Println("Response Body:", prettyJSON.String())
+	//fmt.Println("Response Status:", resp.Status)
+	//fmt.Println("Response Body:", prettyJSON.String())
 
 	// Return the formatted response
 	return prettyJSON.String(), nil

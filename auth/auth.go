@@ -47,9 +47,9 @@ func GetAccessToken() (TokenResponse, error) {
 	// Check if the token is expired or about to expire
 
 	now := time.Now().Unix()
-	fmt.Println("now time", now)
-	fmt.Println("ExpiryTime", tokenResponse.ExpiresIn)
-	fmt.Println("difference left", tokenResponse.ExpiresIn-now)
+	//fmt.Println("now time", now)
+	//fmt.Println("ExpiryTime", tokenResponse.ExpiresIn)
+	//fmt.Println("difference left", tokenResponse.ExpiresIn-now)
 	if now >= tokenResponse.ExpiresIn {
 		// Token is expired or about to expire, refresh it
 		getAccessToken()
@@ -94,7 +94,7 @@ func getAccessToken() {
 		return
 	}
 
-	fmt.Println("Refreshed access token:", tokenResponse.AccessToken)
+	//fmt.Println("Refreshed access token:", tokenResponse.AccessToken)
 }
 
 func handleError(body []byte) {
