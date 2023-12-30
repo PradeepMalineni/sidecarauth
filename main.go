@@ -54,7 +54,9 @@ func main() {
 		if contentType == "" {
 			contentType = "NA"
 		}
-		formattedResponse, err := service.MakeRequest(config.ServiceConfig.ApiURL, config.ServiceConfig.CertFile, config.ServiceConfig.KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
+		uri := r.URL.Path
+		//fmt.Println("IncomingURI", uri)
+		formattedResponse, err := service.MakeRequest(config.ServiceConfig.ApiURL, uri, config.ServiceConfig.CertFile, config.ServiceConfig.KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
 		if err != nil {
 			// Handle the error as needed
 			fmt.Println("Error making request:", err)

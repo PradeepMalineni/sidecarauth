@@ -5,11 +5,11 @@
         "AuthorizationHeader":"Basic 123abc"
     },
     "ListenerConfig":{
-        "ListenerURI":"/listener-service",
+        "ListenerURI":"/",
         "PortNumber":"8090"
     },
     "ServiceConfig":{
-        "ApiURL":"https://127.0.0.1:8445/api",
+        "ApiURL":"https://127.0.0.1:8445",
         "CertFile":"/Users/bhumi/goapp/server.cer",
         "KeyFile":"/Users/bhumi/goapp/server.key"
     }
