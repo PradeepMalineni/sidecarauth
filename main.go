@@ -20,6 +20,7 @@ func main() {
 	}
 
 	auth.Initialize(config.AuthConfig.TokenURL, config.AuthConfig.AuthorizationHeader)
+	//fmt.Println("Start of HTTP handler")
 	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
 		tokenResponse, err := auth.GetAccessToken()
 		if err != nil {
@@ -56,7 +57,8 @@ func main() {
 		}
 		uri := r.URL.Path
 		//fmt.Println("IncomingURI", uri)
-		formattedResponse, err := service.MakeRequest(config.ServiceConfig.ApiURL, uri, config.ServiceConfig.CertFile, config.ServiceConfig.KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
+		backendURL := config.ServiceConfig.ApiURL + uri
+		formattedResponse, err := service.MakeRequest(backendURL, config.ServiceConfig.CertFile, config.ServiceConfig.KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
 		if err != nil {
 			// Handle the error as needed
 			fmt.Println("Error making request:", err)
@@ -70,6 +72,10 @@ func main() {
 
 	// Start the HTTP server
 	fmt.Printf("Go HTTP Listener is listening on port %s...\n", port)
-	http.ListenAndServe(":"+port, nil)
+	err = http.ListenAndServe(":"+port, nil)
+	if err != nil {
+		log.Fatal("Error starting HTTP server:", err)
+	}
+	//fmt.Println("End of HTTP handler")
 
 }

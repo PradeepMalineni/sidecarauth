@@ -11,11 +11,9 @@ import (
 )
 
 // MakeRequest makes a request to the server
-func MakeRequest(apiurl, uri, certFile, keyFile, authToken, httpMethod, contentType, payload string) (string, error) {
+func MakeRequest(backendURL, certFile, keyFile, authToken, httpMethod, contentType, payload string) (string, error) {
 	//fmt.Println("httpMethod", httpMethod)
 	// Create a TLS configuration
-	backendURL := apiurl + uri
-	//fmt.Println("backendURL", backendURL)
 	tlsConfig := &tls.Config{
 		InsecureSkipVerify: true, // Set to true to skip server certificate verification
 	}
