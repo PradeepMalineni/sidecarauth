@@ -54,7 +54,7 @@ func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string,
 			return "", fmt.Errorf("error creating request: %v", err)
 		}
 
-		req.Header.Set("Content-Type", contentType)
+		//req.Header.Set("Content-Type", contentType)
 	}
 
 	req.Header.Set("Authorization", authToken)

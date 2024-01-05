@@ -17,10 +17,7 @@ type ListenerConfig struct {
 }
 
 type ServiceConfig struct {
-	ApiURL      string `json:"ApiURL"`
-	CertFile    string `json:"CertFile"`
-	KeyFile     string `json:"KeyFile"`
-	KeyPassword string `json:"KeyPasswordgo"`
+	ApiURL string `json:"ApiURL"`
 }
 
 type Config struct {

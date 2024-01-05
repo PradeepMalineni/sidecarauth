@@ -18,40 +18,22 @@
     },
     "ServiceConfig":{
         "DEV":{
-            "ApiURL":"https://127.0.0.1:8445",
-            "CertFile":"/Users/bhumi/goapp/server.cer",
-            "KeyFile":"/Users/bhumi/goapp/server.key",
-            "KeyPassword":""
+            "ApiURL":"https://127.0.0.1:8445"
         },
         "SIT":{
-            "ApiURL":"https://127.0.0.1:8446",
-            "CertFile":"/Users/bhumi/goapp/server.cer",
-            "KeyFile":"/Users/bhumi/goapp/server.key",
-            "KeyPassword":""
+            "ApiURL":"https://127.0.0.1:8446"
         },
         "UAT":{
-            "ApiURL":"https://127.0.0.1:8447",
-            "CertFile":"/Users/bhumi/goapp/server.cer",
-            "KeyFile":"/Users/bhumi/goapp/server.key",
-            "KeyPassword":""
+            "ApiURL":"https://127.0.0.1:8447"
         },
         "PERF":{
-            "ApiURL":"https://127.0.0.1:8448",
-            "CertFile":"/Users/bhumi/goapp/server.cer",
-            "KeyFile":"/Users/bhumi/goapp/server.key",
-            "KeyPassword":""
+            "ApiURL":"https://127.0.0.1:8448"
         },
         "STAGE":{
-            "ApiURL":"https://127.0.0.1:8449",
-            "CertFile":"/Users/bhumi/goapp/server.cer",
-            "KeyFile":"/Users/bhumi/goapp/server.key",
-            "KeyPassword":""
+            "ApiURL":"https://127.0.0.1:8449"
         },
         "PROD":{
-            "ApiURL":"https://127.0.0.1:8450",
-            "CertFile":"/Users/bhumi/goapp/server.cer",
-            "KeyFile":"/Users/bhumi/goapp/server.key",
-            "KeyPassword":""
+            "ApiURL":"https://127.0.0.1:8450"
         }
         
     }
