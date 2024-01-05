@@ -3,7 +3,6 @@ package service
 
 import (
 	"bytes"
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,14 +10,14 @@ import (
 )
 
 // MakeRequest makes a request to the server
-func MakeRequest(backendURL, certFile, keyFile, keyPassword, authToken, httpMethod, contentType, payload string) (string, error) {
+func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string) (string, error) {
 	// Create a TLS configuration
-	tlsConfig := &tls.Config{
+	/*tlsConfig := &tls.Config{
 		InsecureSkipVerify: true, // Set to true to skip server certificate verification
-	}
+	}*/
 
 	// Load the client certificate and private key
-	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
+	/*cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
 		return "", fmt.Errorf("error loading client certificate: %v", err)
 	}
@@ -29,16 +28,20 @@ func MakeRequest(backendURL, certFile, keyFile, keyPassword, authToken, httpMeth
 		tlsConfig.GetClientCertificate = func(info *tls.CertificateRequestInfo) (*tls.Certificate, error) {
 			return &cert, nil
 		}
-	}
+	}*/
 
 	// Create a HTTP client with the custom TLS configuration
-	client := &http.Client{
+	/*client := &http.Client{
 		Transport: &http.Transport{
 			//TLSClientConfig: tlsConfig,
 		},
 	}
+	*/
+	client := &http.Client{}
 
 	var req *http.Request
+	var err error // Declare err variable
+	//var req *http.Request
 	if httpMethod == "GET" {
 		req, err = http.NewRequest(httpMethod, backendURL, nil)
 		if err != nil {
