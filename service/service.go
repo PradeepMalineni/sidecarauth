@@ -11,8 +11,7 @@ import (
 )
 
 // MakeRequest makes a request to the server
-func MakeRequest(backendURL, certFile, keyFile, authToken, httpMethod, contentType, payload string) (string, error) {
-	//fmt.Println("httpMethod", httpMethod)
+func MakeRequest(backendURL, certFile, keyFile, keyPassword, authToken, httpMethod, contentType, payload string) (string, error) {
 	// Create a TLS configuration
 	tlsConfig := &tls.Config{
 		InsecureSkipVerify: true, // Set to true to skip server certificate verification
@@ -25,12 +24,20 @@ func MakeRequest(backendURL, certFile, keyFile, authToken, httpMethod, contentTy
 	}
 	tlsConfig.Certificates = []tls.Certificate{cert}
 
+	if keyPassword != "" {
+		// Add a callback for password retrieval if a password is specified
+		tlsConfig.GetClientCertificate = func(info *tls.CertificateRequestInfo) (*tls.Certificate, error) {
+			return &cert, nil
+		}
+	}
+
 	// Create a HTTP client with the custom TLS configuration
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: tlsConfig,
 		},
 	}
+
 	var req *http.Request
 	if httpMethod == "GET" {
 		req, err = http.NewRequest(httpMethod, backendURL, nil)
@@ -67,8 +74,6 @@ func MakeRequest(backendURL, certFile, keyFile, authToken, httpMethod, contentTy
 	if err != nil {
 		return "", fmt.Errorf("error formatting JSON response: %v", err)
 	}
-	//fmt.Println("Response Status:", resp.Status)
-	//fmt.Println("Response Body:", prettyJSON.String())
 
 	// Return the formatted response
 	return prettyJSON.String(), nil
