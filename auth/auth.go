@@ -68,7 +68,7 @@ func getAccessToken() {
 	req, _ := http.NewRequest("POST", configURL, payload)
 
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
-	req.Header.Add("Authorization", "Basic 123aqbc")
+	req.Header.Add("Authorization", authHeader)
 
 	res, _ := http.DefaultClient.Do(req)
 	// Below line added for testing purpose, uncomment line 58 to 65 and comment 67 when ready.
