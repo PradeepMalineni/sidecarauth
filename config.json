@@ -6,11 +6,47 @@
     },
     "ListenerConfig":{
         "ListenerURI":"/",
-        "PortNumber":"8090"
+        "PortNumber":{
+            "DEV":"8090",
+            "SIT":"8091",
+            "UAT":"8092",
+            "PERF":"8093",
+            "STAGE":"8094",
+            "PROD":"8095"
+        }
+        
     },
     "ServiceConfig":{
-        "ApiURL":"https://127.0.0.1:8445",
-        "CertFile":"/Users/bhumi/goapp/server.cer",
-        "KeyFile":"/Users/bhumi/goapp/server.key"
+        "DEV":{
+            "ApiURL":"https://127.0.0.1:8445",
+            "CertFile":"/Users/bhumi/goapp/server.cer",
+            "KeyFile":"/Users/bhumi/goapp/server.key"
+        },
+        "SIT":{
+            "ApiURL":"https://127.0.0.1:8446",
+            "CertFile":"/Users/bhumi/goapp/server.cer",
+            "KeyFile":"/Users/bhumi/goapp/server.key"
+        },
+        "UAT":{
+            "ApiURL":"https://127.0.0.1:8447",
+            "CertFile":"/Users/bhumi/goapp/server.cer",
+            "KeyFile":"/Users/bhumi/goapp/server.key"
+        },
+        "PERF":{
+            "ApiURL":"https://127.0.0.1:8448",
+            "CertFile":"/Users/bhumi/goapp/server.cer",
+            "KeyFile":"/Users/bhumi/goapp/server.key"
+        },
+        "STAGE":{
+            "ApiURL":"https://127.0.0.1:8449",
+            "CertFile":"/Users/bhumi/goapp/server.cer",
+            "KeyFile":"/Users/bhumi/goapp/server.key"
+        },
+        "PROD":{
+            "ApiURL":"https://127.0.0.1:8450",
+            "CertFile":"/Users/bhumi/goapp/server.cer",
+            "KeyFile":"/Users/bhumi/goapp/server.key"
+        }
+        
     }
 }

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"sidecarauth/auth"
 	"sidecarauth/config"
@@ -20,20 +21,41 @@ func main() {
 	}
 
 	auth.Initialize(config.AuthConfig.TokenURL, config.AuthConfig.AuthorizationHeader)
-	//fmt.Println("Start of HTTP handler")
+
 	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
+		// Get the port from the request URL
+		_, port, err := net.SplitHostPort(r.Host)
+		if err != nil {
+			fmt.Printf("Error extracting port from host: %v\n", err)
+			return
+		}
+
+		// Print the port for debugging
+		//fmt.Printf("Received request on port: %s\n", port)
+
+		// Choose the environment based on the port
+		var env string
+		for e, p := range config.ListenerConfig.PortNumber {
+			if p == port {
+				env = e
+				break
+			}
+		}
+
+		// Check if environment is found
+		if env == "" {
+			fmt.Printf("No environment found for port: %s\n", port)
+			return
+		}
+
+		// The rest of the code remains unchanged
+		// ...
+
 		tokenResponse, err := auth.GetAccessToken()
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
 			return
 		}
-
-		// Access fields from the tokenResponse as needed
-		//fmt.Println("Main-TokenType:", tokenResponse.TokenType)
-		//fmt.Println("Main-Access Token:", tokenResponse.AccessToken)
-		//fmt.Println("Main-Issued_at:", tokenResponse.IssuedAt)
-		//fmt.Println("Main-Expires In:", tokenResponse.ExpiresIn)
-		//fmt.Println("Main-Scope:", tokenResponse.Scope)
 
 		responseJSON, err := json.Marshal(tokenResponse)
 		if err != nil {
@@ -41,41 +63,43 @@ func main() {
 			return
 		}
 
-		// Set the Content-Type header and write the JSON response
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(responseJSON)
+
 		payload, err := io.ReadAll(r.Body)
 		if err != nil {
 			fmt.Println("Error reading request body:", err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
 		}
+
 		httpMethod := r.Method
 		contentType := r.Header.Get("Content-Type")
 		if contentType == "" {
 			contentType = "NA"
 		}
 		uri := r.URL.Path
-		//fmt.Println("IncomingURI", uri)
-		backendURL := config.ServiceConfig.ApiURL + uri
-		formattedResponse, err := service.MakeRequest(backendURL, config.ServiceConfig.CertFile, config.ServiceConfig.KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
+		backendURL := config.ServiceConfig[env].ApiURL + uri
+
+		formattedResponse, err := service.MakeRequest(backendURL, config.ServiceConfig[env].CertFile, config.ServiceConfig[env].KeyFile, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
 		if err != nil {
-			// Handle the error as needed
 			fmt.Println("Error making request:", err)
 			return
 		}
 		fmt.Fprintf(w, "\n\nFormatted Response: %s", formattedResponse)
 	})
 
-	// Specify the port to listen on
-	port := config.ListenerConfig.PortNumber
-
-	// Start the HTTP server
-	fmt.Printf("Go HTTP Listener is listening on port %s...\n", port)
-	err = http.ListenAndServe(":"+port, nil)
-	if err != nil {
-		log.Fatal("Error starting HTTP server:", err)
+	// Start HTTP server for each configured port
+	for env, port := range config.ListenerConfig.PortNumber {
+		env, port := env, port // Capture variables for the goroutine
+		go func() {
+			fmt.Printf("Go HTTP Listener for %s is listening on port %s...\n", env, port)
+			err := http.ListenAndServe(":"+port, nil)
+			if err != nil {
+				log.Fatalf("Error starting HTTP server for %s: %v", env, err)
+			}
+		}()
 	}
-	//fmt.Println("End of HTTP handler")
 
+	select {}
 }
