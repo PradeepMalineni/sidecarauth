@@ -10,7 +10,7 @@ import (
 )
 
 // MakeRequest makes a request to the server
-func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string) (string, error) {
+func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string, headers http.Header) (string, error) {
 	// Create a TLS configuration
 	/*tlsConfig := &tls.Config{
 		InsecureSkipVerify: true, // Set to true to skip server certificate verification
@@ -42,6 +42,7 @@ func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string)
 	var req *http.Request
 	var err error // Declare err variable
 	//var req *http.Request
+	//fmt.Println("BackendURL", backendURL)
 	if httpMethod == "GET" {
 		req, err = http.NewRequest(httpMethod, backendURL, nil)
 		if err != nil {
@@ -57,7 +58,11 @@ func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string)
 	}
 
 	req.Header.Set("Authorization", authToken)
-
+	for key, values := range headers {
+		for _, value := range values {
+			req.Header.Add(key, value)
+		}
+	}
 	// Make a request to the server using client.Do(req)
 	resp, err := client.Do(req)
 	if err != nil {
