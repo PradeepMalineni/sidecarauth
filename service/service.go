@@ -34,7 +34,7 @@ func MakeRequest(backendURL, certFile, keyFile, keyPassword, authToken, httpMeth
 	// Create a HTTP client with the custom TLS configuration
 	client := &http.Client{
 		Transport: &http.Transport{
-			TLSClientConfig: tlsConfig,
+			//TLSClientConfig: tlsConfig,
 		},
 	}
 
