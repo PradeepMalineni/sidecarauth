@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 )
@@ -62,16 +63,16 @@ func getAccessToken() {
 	// Use configURL and authHeader as needed
 	//url := "https://apiidp-enterprise1-sandbox.wellsfargo.com/oauth/token"
 
-	/*payload := strings.NewReader("grant_type=client_credentials")
+	payload := strings.NewReader("grant_type=client_credentials")
 
 	req, _ := http.NewRequest("POST", configURL, payload)
 
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
 	req.Header.Add("Authorization", authHeader)
 
-	res, _ := http.DefaultClient.Do(req)*/
+	res, _ := http.DefaultClient.Do(req)
 	// Below line added for testing purpose, uncomment line 58 to 65 and comment 67 when ready.
-	res, err := http.Get(configURL)
+	//res, err := http.Get(configURL)
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
