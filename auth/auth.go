@@ -51,7 +51,7 @@ func GetAccessToken() (TokenResponse, error) {
 	//fmt.Println("now time", now)
 	//fmt.Println("ExpiryTime", tokenResponse.ExpiresIn)
 	//fmt.Println("difference left", tokenResponse.ExpiresIn-now)
-	if now >= tokenResponse.ExpiresIn {
+	if now >= tokenResponse.ExpiresIn+tokenResponse.IssuedAt {
 		// Token is expired or about to expire, refresh it
 		getAccessToken()
 	}
