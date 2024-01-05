@@ -80,8 +80,8 @@ func main() {
 		}
 		uri := r.URL.Path
 		backendURL := config.ServiceConfig[env].ApiURL + uri
-
-		formattedResponse, err := service.MakeRequest(backendURL, tokenResponse.AccessToken, httpMethod, contentType, string(payload))
+		accessToken := "Bearer " + tokenResponse.AccessToken
+		formattedResponse, err := service.MakeRequest(backendURL, accessToken, httpMethod, contentType, string(payload))
 		if err != nil {
 			fmt.Println("Error making request:", err)
 			return
