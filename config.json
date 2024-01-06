@@ -1,40 +1,59 @@
 {
-    "AuthConfig":{
-        
-        "TokenURL":"http://127.0.0.1:8080/generate-token",
-        "AuthorizationHeader":"Basic 123abc"
-    },
-    "ListenerConfig":{
-        "ListenerURI":"/",
-        "PortNumber":{
-            "DEV":"8090",
-            "SIT":"8091",
-            "UAT":"8092",
-            "PERF":"8093",
-            "STAGE":"8094",
-            "PROD":"8095"
+    "AuthConfig": {
+        "DEV": {
+            "TokenURL": "http://127.0.0.1:8080/generate-token",
+            "AuthorizationHeader": "Basic 123abc"
+        },
+        "SIT": {
+            "TokenURL": "http://127.0.0.1:8081/generate-token",
+            "AuthorizationHeader": "Basic 123abc"
+        },
+        "UAT": {
+            "TokenURL": "http://127.0.0.1:8082/generate-token",
+            "AuthorizationHeader": "Basic 123abc"
+        },
+        "PERF": {
+            "TokenURL": "http://127.0.0.1:8083/generate-token",
+            "AuthorizationHeader": "Basic 123abc"
+        },
+        "STAGE": {
+            "TokenURL": "http://127.0.0.1:8084/generate-token",
+            "AuthorizationHeader": "Basic 123abc"
+        },
+        "PROD": {
+            "TokenURL": "http://127.0.0.1:8085/generate-token",
+            "AuthorizationHeader": "Basic 123abc"
         }
-        
     },
-    "ServiceConfig":{
-        "DEV":{
-            "ApiURL":"https://127.0.0.1:8445"
-        },
-        "SIT":{
-            "ApiURL":"https://127.0.0.1:8446"
-        },
-        "UAT":{
-            "ApiURL":"https://127.0.0.1:8447"
-        },
-        "PERF":{
-            "ApiURL":"https://127.0.0.1:8448"
-        },
-        "STAGE":{
-            "ApiURL":"https://127.0.0.1:8449"
-        },
-        "PROD":{
-            "ApiURL":"https://127.0.0.1:8450"
+    "ListenerConfig": {
+        "ListenerURI": "/",
+        "PortNumber": {
+            "DEV": "8090",
+            "SIT": "8091",
+            "UAT": "8092",
+            "PERF": "8093",
+            "STAGE": "8094",
+            "PROD": "8095"
         }
-        
+    },
+    "ServiceConfig": {
+        "DEV": {
+            "ApiURL": "https://127.0.0.1:8445"
+        },
+        "SIT": {
+            "ApiURL": "https://127.0.0.1:8446"
+        },
+        "UAT": {
+            "ApiURL": "https://127.0.0.1:8447"
+        },
+        "PERF": {
+            "ApiURL": "https://127.0.0.1:8448"
+        },
+        "STAGE": {
+            "ApiURL": "https://127.0.0.1:8449"
+        },
+        "PROD": {
+            "ApiURL": "https://127.0.0.1:8450"
+        }
     }
 }

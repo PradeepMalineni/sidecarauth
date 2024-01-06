@@ -1,4 +1,4 @@
-// auth.go
+// auth/auth.go
 package auth
 
 import (
@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sidecarauth/config"
 	"strings"
 	"sync"
 	"time"
 )
 
+// TokenResponse holds the authentication token information
 type TokenResponse struct {
 	TokenType   string `json:"token_type"`
 	AccessToken string `json:"access_token"`
@@ -19,60 +21,72 @@ type TokenResponse struct {
 	Scope       string `json:"scope"`
 }
 
+// ErrorResponse holds information about an error response
 type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
-var (
+// AuthHandler holds the state of the authentication process
+type AuthHandler struct {
 	tokenResponse TokenResponse
-	configURL     string
-	authHeader    string
+	config        config.AuthConfig
 	mu            sync.Mutex // Mutex for thread-safe operations
-)
+}
+
+// NewAuthHandler creates a new instance of AuthHandler
+func NewAuthHandler(envConfig config.AuthConfig) *AuthHandler {
+	return &AuthHandler{
+		config: envConfig,
+	}
+}
 
 // Initialize is called with the configuration values
-func Initialize(url, header string) {
-	configURL = url
-	authHeader = header
-
+func (a *AuthHandler) Initialize() {
 	// Call the function to get the initial access token
-	getAccessToken()
+	a.getAccessToken()
 }
 
 // GetAccessToken function to get the access token
-func GetAccessToken() (TokenResponse, error) {
+func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 	// Lock to ensure thread-safe access
-	mu.Lock()
-	defer mu.Unlock()
+	a.mu.Lock()
+	defer a.mu.Unlock()
 
 	// Check if the token is expired or about to expire
-
 	now := time.Now().Unix()
-	//fmt.Println("now time", now)
-	//fmt.Println("ExpiryTime", tokenResponse.ExpiresIn)
-	//fmt.Println("difference left", tokenResponse.ExpiresIn-now)
-	if now >= tokenResponse.ExpiresIn+tokenResponse.IssuedAt {
+	if a.tokenResponse.AccessToken == "" || now >= a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt {
 		// Token is expired or about to expire, refresh it
-		getAccessToken()
+		a.getAccessToken()
 	}
 
-	return tokenResponse, nil
+	return a.tokenResponse, nil
 }
 
-func getAccessToken() {
-	// Use configURL and authHeader as needed
-	//url := "https://apiidp-enterprise1-sandbox.wellsfargo.com/oauth/token"
+func (a *AuthHandler) getAccessToken() {
+	// Lock to ensure thread-safe access
+	a.mu.Lock()
+	defer a.mu.Unlock()
 
+	// Check if the token is expired or about to expire
+	now := time.Now().Unix()
+	if now < a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt-60 { // 60 seconds before expiration
+		// Token is not close to expiration, no need to refresh
+		return
+	}
+
+	// Use configURL and authHeader as needed
 	payload := strings.NewReader("grant_type=client_credentials")
 
-	req, _ := http.NewRequest("POST", configURL, payload)
+	req, _ := http.NewRequest("POST", a.config.TokenURL, payload)
 
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
-	req.Header.Add("Authorization", authHeader)
+	req.Header.Add("Authorization", a.config.AuthorizationHeader)
 
-	res, _ := http.DefaultClient.Do(req)
-	// Below line added for testing purpose, uncomment line 58 to 65 and comment 67 when ready.
-	//res, err := http.Get(configURL)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Println("Error performing HTTP request:", err)
+		return
+	}
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
@@ -86,19 +100,17 @@ func getAccessToken() {
 	}
 	if res.StatusCode != http.StatusOK {
 		fmt.Println("Received non-OK status:", res.Status)
-		handleError(body)
+		a.handleError(body)
 		return
 	}
-	err = json.Unmarshal(body, &tokenResponse)
+	err = json.Unmarshal(body, &a.tokenResponse)
 	if err != nil {
 		fmt.Println("Error unmarshalling JSON:", err)
 		return
 	}
-
-	//fmt.Println("Refreshed access token:", tokenResponse.AccessToken)
 }
 
-func handleError(body []byte) {
+func (a *AuthHandler) handleError(body []byte) {
 	var errorResponse ErrorResponse
 	err := json.Unmarshal(body, &errorResponse)
 	if err == nil && errorResponse.Error != "" {

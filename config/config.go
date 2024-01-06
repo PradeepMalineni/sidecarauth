@@ -21,7 +21,7 @@ type ServiceConfig struct {
 }
 
 type Config struct {
-	AuthConfig     AuthConfig               `json:"AuthConfig"`
+	AuthConfig     map[string]AuthConfig    `json:"AuthConfig"`
 	ListenerConfig ListenerConfig           `json:"ListenerConfig"`
 	ServiceConfig  map[string]ServiceConfig `json:"ServiceConfig"`
 }

@@ -20,7 +20,12 @@ func main() {
 		log.Fatal("Error loading configuration:", err)
 	}
 
-	auth.Initialize(config.AuthConfig.TokenURL, config.AuthConfig.AuthorizationHeader)
+	// Create an instance of AuthHandler for each environment
+	authHandlers := make(map[string]*auth.AuthHandler)
+	for env, envConfig := range config.AuthConfig {
+		authHandler := auth.NewAuthHandler(envConfig)
+		authHandlers[env] = authHandler
+	}
 
 	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
 		// Get the port from the request URL
@@ -29,9 +34,6 @@ func main() {
 			fmt.Printf("Error extracting port from host: %v\n", err)
 			return
 		}
-
-		// Print the port for debugging
-		// fmt.Printf("Received request on port: %s\n", port)
 
 		// Choose the environment based on the port
 		var env string
@@ -48,10 +50,10 @@ func main() {
 			return
 		}
 
-		// The rest of the code remains unchanged
-		// ...
+		// Initialize AuthHandler with configuration values
+		authHandlers[env].Initialize()
 
-		tokenResponse, err := auth.GetAccessToken()
+		tokenResponse, err := authHandlers[env].GetAccessToken()
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
 			return
