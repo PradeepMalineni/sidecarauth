@@ -1,4 +1,12 @@
-// main.go
+/*
+Copyright (c) 2022-2024 All rights reserved.
+
+
+For inquiries or collaboration, please contact:
+- Pradeep Malineni <pradeep.malineni@hotmail.com>
+- Bhumika Pehwani <bhumika15peshwani8@gmail.com>
+*/
+
 package main
 
 import (
@@ -8,30 +16,52 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"sidecarauth/auth"
 	"sidecarauth/config"
 	"sidecarauth/service"
+	"time"
 )
 
 func main() {
+
+	// Generate a timestamp
+	currentTime := time.Now()
+	// Format the timestamp as YYYY-MM-DD_HH-MM-SS
+	timestampFormat := "2006-01-02 15:04:05"
 	configPath := "config.json"
+
+	// Create the log file with the timestamp in the filename
+	logFileName := fmt.Sprintf("app_%s.log", currentTime.Format(timestampFormat))
+
+	// Open or create a log file
+	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("[%s]: Error opening log file: %s", currentTime.Format(timestampFormat), err)
+	}
+	defer logFile.Close()
+
+	// Set log output to both console and the log file
+	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
+	log.Printf("[%s]: SideCarAuthSvcs Started", currentTime.Format(timestampFormat))
+
 	config, err := config.LoadConfig(configPath)
 	if err != nil {
-		log.Fatal("Error loading configuration:", err)
+		log.Fatalf("[%s]: Error loading configuration %s:", currentTime.Format(timestampFormat), err)
 	}
-
 	// Create an instance of AuthHandler for each environment
 	authHandlers := make(map[string]*auth.AuthHandler)
 	for env, envConfig := range config.AuthConfig {
 		authHandler := auth.NewAuthHandler(envConfig)
 		authHandlers[env] = authHandler
 	}
+	log.Printf("[%s]: Authentication Listners enabled", currentTime.Format(timestampFormat))
 
 	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
 		// Get the port from the request URL
 		_, port, err := net.SplitHostPort(r.Host)
 		if err != nil {
-			fmt.Printf("Error extracting port from host: %v\n", err)
+			fmt.Printf("[%s]: Error extracting port from host: %v\n", currentTime.Format(timestampFormat), err)
 			return
 		}
 
@@ -46,7 +76,7 @@ func main() {
 
 		// Check if environment is found
 		if env == "" {
-			fmt.Printf("No environment found for port: %s\n", port)
+			fmt.Printf("[%s]: No environment found for port: %s\n", currentTime.Format(timestampFormat), port)
 			return
 		}
 
