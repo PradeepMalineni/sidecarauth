@@ -28,11 +28,22 @@ func main() {
 	// Generate a timestamp
 	currentTime := time.Now()
 	// Format the timestamp as YYYY-MM-DD_HH-MM-SS
-	timestampFormat := "2006-01-02 15:04:05"
-	configPath := "config.json"
+	timestampFormat := "2006-01-02"
+	// Specify the directory name
+	logDir := "logs"
 
-	// Create the log file with the timestamp in the filename
-	logFileName := fmt.Sprintf("app_%s.log", currentTime.Format(timestampFormat))
+	// Create the directory if it doesn't exist
+	if _, err := os.Stat(logDir); os.IsNotExist(err) {
+		err := os.MkdirAll(logDir, 0755)
+		if err != nil {
+			fmt.Println("Error creating directory:", err)
+			return
+		}
+		fmt.Printf("Created directory: %s\n", logDir)
+	}
+
+	// Generate the log file name with the current timestamp
+	logFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
 
 	// Open or create a log file
 	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
@@ -43,14 +54,22 @@ func main() {
 
 	// Set log output to both console and the log file
 	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
-	log.Printf("[%s]: SideCarAuthSvcs Started", currentTime.Format(timestampFormat))
+	log.Print("SideCarAuthSvcs Started")
 
-	config, err := config.LoadConfig(configPath)
+	// Read the file path from the environment variable
+	configFilePath := os.Getenv("CONFIG_FILE_PATH")
+	if configFilePath == "" {
+		fmt.Println("CONFIG_FILE_PATH environment variable not set.")
+		os.Exit(1)
+	}
+
+	config, err := config.LoadConfig(configFilePath)
 	if err != nil {
 		log.Fatalf("[%s]: Error loading configuration %s:", currentTime.Format(timestampFormat), err)
 	}
 	// Create an instance of AuthHandler for each environment
 	authHandlers := make(map[string]*auth.AuthHandler)
+	//iterate over the config list
 	for env, envConfig := range config.AuthConfig {
 		authHandler := auth.NewAuthHandler(envConfig)
 		authHandlers[env] = authHandler
@@ -83,7 +102,7 @@ func main() {
 		// Initialize AuthHandler with configuration values
 		authHandlers[env].Initialize()
 
-		tokenResponse, err := authHandlers[env].GetAccessToken()
+		tokenResponse, err := newFunction(authHandlers, env)
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
 			return
@@ -134,4 +153,9 @@ func main() {
 	}
 
 	select {}
+}
+
+func newFunction(authHandlers map[string]*auth.AuthHandler, env string) (auth.TokenResponse, error) {
+	tokenResponse, err := authHandlers[env].GetAccessToken()
+	return tokenResponse, err
 }

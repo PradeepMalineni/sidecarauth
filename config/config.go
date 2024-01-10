@@ -3,6 +3,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
@@ -40,4 +41,27 @@ func LoadConfig(configPath string) (Config, error) {
 	}
 
 	return config, nil
+}
+
+func CreateFileInDirectory(directory, filename string) error {
+	// Check if the directory exists
+	if _, err := os.Stat(directory); os.IsNotExist(err) {
+		// Create the directory if it doesn't exist
+		err := os.MkdirAll(directory, 0755)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("Created directory: %s\n", directory)
+	}
+
+	// Create or open the file within the specified directory
+	filePath := fmt.Sprintf("%s/%s", directory, filename)
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	fmt.Printf("Created file: %s\n", filePath)
+	return nil
 }
