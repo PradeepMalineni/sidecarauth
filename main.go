@@ -31,6 +31,7 @@ func main() {
 	timestampFormat := "2006-01-02"
 	// Specify the directory name
 	logDir := "logs"
+	//updated the code here only
 
 	// Create the directory if it doesn't exist
 	if _, err := os.Stat(logDir); os.IsNotExist(err) {
