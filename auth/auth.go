@@ -5,12 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"sidecarauth/config"
 	"strings"
 	"sync"
 	"time"
 )
+
+var timestampFormat = "2006-01-01"
 
 // TokenResponse holds the authentication token information
 type TokenResponse struct {
@@ -64,6 +67,8 @@ func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 
 func (a *AuthHandler) getAccessToken() {
 	// Lock to ensure thread-safe access
+	log.Printf("[%s]: Auth Module : getAccessToken", time.Now().Format(timestampFormat))
+
 	a.mu.Lock()
 	defer a.mu.Unlock()
 
@@ -84,30 +89,38 @@ func (a *AuthHandler) getAccessToken() {
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
-		fmt.Println("Error performing HTTP request:", err)
+		//fmt.Println("Error performing HTTP request:", err)
+		log.Printf("[%s]: Error Auth Module Error performing HTTP request: %s", time.Now().Format(timestampFormat), err)
+
 		return
 	}
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println("Error reading response body:", err)
+		//log.Println("Error reading response body:", err)
+		log.Printf("[%s]: Error Auth Module Error reading response body: %s", time.Now().Format(timestampFormat), err)
+
 		return
 	}
 
 	if err != nil {
-		fmt.Println("Error performing HTTP request:", err)
+		//	log.Println("Error performing HTTP request:", err)
+		log.Printf("[%s]: Error Auth Module Error performing HTTP request: %s", time.Now().Format(timestampFormat), err)
+
 		return
 	}
 	if res.StatusCode != http.StatusOK {
-		fmt.Println("Received non-OK status:", res.Status)
+		log.Printf("[%s]: Error Auth Module Received non-OK status: %s", time.Now().Format(timestampFormat), res.Status)
 		a.handleError(body)
 		return
 	}
 	err = json.Unmarshal(body, &a.tokenResponse)
 	if err != nil {
-		fmt.Println("Error unmarshalling JSON:", err)
+		log.Println("Error unmarshalling JSON:", err)
 		return
 	}
+	log.Printf("[%s]: Auth Module : getAccessToken token obtained sucessfully", time.Now().Format(timestampFormat))
+
 }
 
 func (a *AuthHandler) handleError(body []byte) {

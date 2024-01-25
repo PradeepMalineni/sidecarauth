@@ -28,7 +28,7 @@ func main() {
 	// Generate a timestamp
 	currentTime := time.Now()
 	// Format the timestamp as YYYY-MM-DD_HH-MM-SS
-	timestampFormat := "2006-01-02"
+	timestampFormat := "2006-01-01"
 	// Specify the directory name
 	logDir := "logs"
 	//updated the code here only
@@ -44,30 +44,36 @@ func main() {
 	}
 
 	// Generate the log file name with the current timestamp
-	logFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
+	applogFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
+	//errlogFileName := fmt.Sprintf("%s/error_%s.log", logDir, currentTime.Format(timestampFormat))
+	//txlogFileName := fmt.Sprintf("%s/transaction_%s.log", logDir, currentTime.Format(timestampFormat))
 
 	// Open or create a log file
-	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFile, err := os.OpenFile(applogFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("[%s]: Error opening log file: %s", currentTime.Format(timestampFormat), err)
+		log.Fatalf("[%s]: Error opening log file: %s", time.Now().Format(timestampFormat), err)
 	}
 	defer logFile.Close()
 
 	// Set log output to both console and the log file
 	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
-	log.Print("SideCarAuthSvcs Started")
+	log.Print("SideCarAuthSvcs Initializing")
 
 	// Read the file path from the environment variable
 	configFilePath := os.Getenv("CONFIG_FILE_PATH")
 	if configFilePath == "" {
-		fmt.Println("CONFIG_FILE_PATH environment variable not set.")
+		//fmt.Println("CONFIG_FILE_PATH environment variable not set.")
+		//log.Printf("Error :ONFIG_FILE_PATH environment variable not set. Program Exit")
+		log.Printf("[%s]: Error :CONFIG_FILE_PATH environment variable not set. Program Exit", time.Now().Format(timestampFormat))
+
 		os.Exit(1)
 	}
 
 	config, err := config.LoadConfig(configFilePath)
 	if err != nil {
-		log.Fatalf("[%s]: Error loading configuration %s:", currentTime.Format(timestampFormat), err)
+		log.Printf("[%s]: Error loading configuration %s:", time.Now().Format(timestampFormat), err)
 	}
+
 	// Create an instance of AuthHandler for each environment
 	authHandlers := make(map[string]*auth.AuthHandler)
 	//iterate over the config list
@@ -75,13 +81,14 @@ func main() {
 		authHandler := auth.NewAuthHandler(envConfig)
 		authHandlers[env] = authHandler
 	}
-	log.Printf("[%s]: Authentication Listners enabled", currentTime.Format(timestampFormat))
+	//log.Printf("[%s]: Authentication Listners enabled", currentTime.Format(timestampFormat))
 
 	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
 		// Get the port from the request URL
 		_, port, err := net.SplitHostPort(r.Host)
 		if err != nil {
-			fmt.Printf("[%s]: Error extracting port from host: %v\n", currentTime.Format(timestampFormat), err)
+			//fmt.Printf("[%s]: Error extracting port from host: %v\n", currentTime.Format(timestampFormat), err)
+			log.Printf("[%s]: Error extracting port from host: %v\n", time.Now().Format(timestampFormat), err)
 			return
 		}
 
@@ -96,9 +103,11 @@ func main() {
 
 		// Check if environment is found
 		if env == "" {
-			fmt.Printf("[%s]: No environment found for port: %s\n", currentTime.Format(timestampFormat), port)
+			//fmt.Printf("[%s]: No environment found for port: %s\n", currentTime.Format(timestampFormat), port)
+			log.Printf("[%s]: No environment found for port: %s\n", time.Now().Format(timestampFormat), port)
 			return
 		}
+		log.Printf("[%s]: Error extracting port from host: \n", time.Now().Format(timestampFormat))
 
 		// Initialize AuthHandler with configuration values
 		authHandlers[env].Initialize()

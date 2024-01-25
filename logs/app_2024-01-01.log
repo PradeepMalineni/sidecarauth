@@ -1,0 +1,11 @@
+2024/01/25 21:08:28 SideCarAuthSvcs Initializing
+2024/01/25 21:08:28 [2024-01-01]: Error extracting port from host: <nil>
+2024/01/25 21:09:18 SideCarAuthSvcs Initializing
+2024/01/25 21:09:18 [2024-01-01]: Error extracting port from host: <nil>
+2024/01/25 21:13:40 SideCarAuthSvcs Initializing
+2024/01/25 21:13:40 [2024-01-01]: Error extracting port from host: <nil>
+2024/01/25 21:15:08 SideCarAuthSvcs Initializing
+2024/01/25 21:15:08 [2024-01-01]: Error :ONFIG_FILE_PATH environment variable not set. Program Exit%!(EXTRA <nil>)
+2024/01/25 21:15:41 SideCarAuthSvcs Initializing
+2024/01/25 21:15:41 [2024-01-01]: Error :CONFIG_FILE_PATH environment variable not set. Program Exit
+2024/01/25 21:16:53 SideCarAuthSvcs Initializing
