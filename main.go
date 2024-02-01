@@ -2,10 +2,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
-	"sidecarauth/config"
+	"os"
 	"sidecarauth/reverseproxy"
 )
 
@@ -38,9 +39,37 @@ func main() {
 
 */
 
+type AuthConfig struct {
+	TokenURL            string `json:"TokenURL"`
+	AuthorizationHeader string `json:"AuthorizationHeader"`
+}
+
+// Config struct for overall configuration
+type Config struct {
+	AuthConfig     AuthConfig  `json:"AuthConfig"`
+	ListenerConfig interface{} `json:"ListenerConfig"` // Adjust the type as needed
+	ServiceConfig  interface{} `json:"ServiceConfig"`  // Adjust the type as needed
+}
+
+func LoadConfig(configPath string) (Config, error) {
+	var config Config
+
+	data, err := os.ReadFile(configPath)
+	if err != nil {
+		return config, err
+	}
+
+	err = json.Unmarshal(data, &config)
+	if err != nil {
+		return config, err
+	}
+
+	return config, nil
+}
+
 func main() {
-	// Load configuration from file
-	cfg, err := config.Load("config.json")
+	configPath := "config.json"
+	config, err := LoadConfig(configPath)
 	if err != nil {
 		log.Fatal("Error loading configuration:", err)
 	}
@@ -65,4 +94,39 @@ func main() {
 		log.Fatal("Error starting server:", err)
 	}
 	//select {}
+	auth.Initialize(config.AuthConfig.TokenURL, config.AuthConfig.AuthorizationHeader)
+	http.HandleFunc("/listener-service", func(w http.ResponseWriter, r *http.Request) {
+		tokenResponse, err := auth.GetAccessToken()
+		if err != nil {
+			http.Error(w, "Error getting access token", http.StatusInternalServerError)
+			return
+		}
+
+		// Access fields from the tokenResponse as needed
+		fmt.Println("Main-TokenType:", tokenResponse.TokenType)
+		fmt.Println("Main-Access Token:", tokenResponse.AccessToken)
+		fmt.Println("Main-Issued_at:", tokenResponse.IssuedAt)
+		fmt.Println("Main-Expires In:", tokenResponse.ExpiresIn)
+		fmt.Println("Main-Scope:", tokenResponse.Scope)
+
+		responseJSON, err := json.Marshal(tokenResponse)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		// Set the Content-Type header and write the JSON response
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(responseJSON)
+
+	})
+
+	// Specify the port to listen on
+	port := 8090
+
+	// Start the HTTP server
+	fmt.Printf("Go HTTP Listener is listening on port %d...\n", port)
+	//http.HandleFunc("/generate-token", handler)
+	http.ListenAndServe(":8090", nil)
+
 }
