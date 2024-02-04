@@ -7,49 +7,31 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	logger "sidecarauth/utility"
+	"time"
 )
 
 // MakeRequest makes a request to the server
 func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string, headers http.Header) (string, error) {
-	// Create a TLS configuration
-	/*tlsConfig := &tls.Config{
-		InsecureSkipVerify: true, // Set to true to skip server certificate verification
-	}*/
+	logger.Log("Servie API : API Request Started ")
 
-	// Load the client certificate and private key
-	/*cert, err := tls.LoadX509KeyPair(certFile, keyFile)
-	if err != nil {
-		return "", fmt.Errorf("error loading client certificate: %v", err)
+	client := &http.Client{
+		Timeout: 10 * time.Second,
 	}
-	tlsConfig.Certificates = []tls.Certificate{cert}
-
-	if keyPassword != "" {
-		// Add a callback for password retrieval if a password is specified
-		tlsConfig.GetClientCertificate = func(info *tls.CertificateRequestInfo) (*tls.Certificate, error) {
-			return &cert, nil
-		}
-	}*/
-
-	// Create a HTTP client with the custom TLS configuration
-	/*client := &http.Client{
-		Transport: &http.Transport{
-			//TLSClientConfig: tlsConfig,
-		},
-	}
-	*/
-	client := &http.Client{}
 
 	var req *http.Request
 	var err error // Declare err variable
 	//var req *http.Request
 	//fmt.Println("BackendURL", backendURL)
 	if httpMethod == "GET" {
+		logger.Log("Servie API : HTTP GET call")
 		req, err = http.NewRequest(httpMethod, backendURL, nil)
 		if err != nil {
 			return "", fmt.Errorf("error creating request: %v", err)
 		}
 	} else {
 		req, err = http.NewRequest(httpMethod, backendURL, bytes.NewBuffer([]byte(payload)))
+		logger.Log("Servie API : NOT HTTP GET call")
 		if err != nil {
 			return "", fmt.Errorf("error creating request: %v", err)
 		}

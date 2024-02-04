@@ -5,15 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
+	"reflect"
 	"sidecarauth/config"
+	logger "sidecarauth/utility"
 	"strings"
 	"sync"
 	"time"
 )
-
-var timestampFormat = "2006-01-01"
 
 // TokenResponse holds the authentication token information
 type TokenResponse struct {
@@ -37,7 +36,8 @@ type AuthHandler struct {
 }
 
 // NewAuthHandler creates a new instance of AuthHandler
-func NewAuthHandler(envConfig config.AuthConfig) *AuthHandler {
+func NewAuthHandler(env string, envConfig config.AuthConfig) *AuthHandler {
+	logger.LogF("Auth Module :  Authentication Handler initailizing:", env)
 	return &AuthHandler{
 		config: envConfig,
 	}
@@ -46,6 +46,7 @@ func NewAuthHandler(envConfig config.AuthConfig) *AuthHandler {
 // Initialize is called with the configuration values
 func (a *AuthHandler) Initialize() {
 	// Call the function to get the initial access token
+	logger.Log("Auth Module : getAccessToken func call")
 	a.getAccessToken()
 }
 
@@ -54,11 +55,14 @@ func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 	// Lock to ensure thread-safe access
 	a.mu.Lock()
 	defer a.mu.Unlock()
+	logger.Log("Auth Module : GetAccessToken func call")
 
 	// Check if the token is expired or about to expire
 	now := time.Now().Unix()
 	if a.tokenResponse.AccessToken == "" || now >= a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt {
 		// Token is expired or about to expire, refresh it
+		logger.Log("Auth Module : GetAccessToken func call2")
+
 		a.getAccessToken()
 	}
 
@@ -67,16 +71,29 @@ func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 
 func (a *AuthHandler) getAccessToken() {
 	// Lock to ensure thread-safe access
-	log.Printf("[%s]: Auth Module : getAccessToken", time.Now().Format(timestampFormat))
-
 	a.mu.Lock()
 	defer a.mu.Unlock()
+	logger.LogF("Token data", a.tokenResponse)
+	if !isEmptyStruct(a.tokenResponse) {
+		logger.Log("Auth Module : No token found")
+		now := time.Now().Unix()
+		if now < a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt-60 { // 60 seconds before expiration
+			// Token is not close to expiration, no need to refresh
+			return
+		}
 
+	}
 	// Check if the token is expired or about to expire
-	now := time.Now().Unix()
-	if now < a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt-60 { // 60 seconds before expiration
-		// Token is not close to expiration, no need to refresh
-		return
+	logger.Log("Auth Module : New token request initiated")
+
+	t := http.DefaultTransport.(*http.Transport).Clone()
+	t.MaxIdleConns = 100
+	t.MaxConnsPerHost = 100
+	t.MaxIdleConnsPerHost = 100
+
+	client := &http.Client{
+		Timeout:   10 * time.Second,
+		Transport: t,
 	}
 
 	// Use configURL and authHeader as needed
@@ -87,39 +104,33 @@ func (a *AuthHandler) getAccessToken() {
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
 	req.Header.Add("Authorization", a.config.AuthorizationHeader)
 
-	res, err := http.DefaultClient.Do(req)
+	res, err := client.Do(req)
 	if err != nil {
-		//fmt.Println("Error performing HTTP request:", err)
-		log.Printf("[%s]: Error Auth Module Error performing HTTP request: %s", time.Now().Format(timestampFormat), err)
-
+		logger.LogF("Auth Module : Error performing HTTP request to IDP service:", err)
 		return
 	}
-	defer res.Body.Close()
+	// Close the response body to ensure proper connection closure
+	defer func() {
+		if err := res.Body.Close(); err != nil {
+			logger.LogF("Error closing response body:", err)
+		}
+	}()
+
+	//defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		//log.Println("Error reading response body:", err)
-		log.Printf("[%s]: Error Auth Module Error reading response body: %s", time.Now().Format(timestampFormat), err)
-
-		return
-	}
-
-	if err != nil {
-		//	log.Println("Error performing HTTP request:", err)
-		log.Printf("[%s]: Error Auth Module Error performing HTTP request: %s", time.Now().Format(timestampFormat), err)
-
+		logger.LogF("Error performing HTTP request:", err)
 		return
 	}
 	if res.StatusCode != http.StatusOK {
-		log.Printf("[%s]: Error Auth Module Received non-OK status: %s", time.Now().Format(timestampFormat), res.Status)
 		a.handleError(body)
 		return
 	}
 	err = json.Unmarshal(body, &a.tokenResponse)
 	if err != nil {
-		log.Println("Error unmarshalling JSON:", err)
+		logger.LogF("Error unmarshalling JSON:", err)
 		return
 	}
-	log.Printf("[%s]: Auth Module : getAccessToken token obtained sucessfully", time.Now().Format(timestampFormat))
 
 }
 
@@ -131,4 +142,9 @@ func (a *AuthHandler) handleError(body []byte) {
 	} else {
 		fmt.Println("Unexpected response from the server")
 	}
+}
+
+func isEmptyStruct(s interface{}) bool {
+	zeroValue := reflect.Zero(reflect.TypeOf(s))
+	return reflect.DeepEqual(s, zeroValue.Interface())
 }

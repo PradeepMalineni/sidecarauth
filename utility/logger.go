@@ -1,29 +1,37 @@
+// logger/logger.go
 package logger
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"time"
 )
 
-const logDir = "/path/to/log/directory"
-const timestampFormat = "2006-01-02_15-04-05"
+const logDir = "logs" // Specify your desired log directory
 
 func InitLogger() {
-	// Generate the log file name with the current timestamp
-	currentTime := time.Now()
-	applogFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
-
-	// Open or create a log file
-	logFile, err := os.OpenFile(applogFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("[%s]: Error opening log file: %s", time.Now().Format(timestampFormat), err)
+	if err := os.MkdirAll(logDir, 0755); err != nil {
+		log.Fatalf("Error creating log directory: %s", err)
 	}
-	defer logFile.Close()
+	formattedTime := "2006-01-02"
+	logFileName := fmt.Sprintf("%s/app_%s.log", logDir, time.Now().Format(formattedTime))
 
-	// Set log output to both console and the log file
-	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
-	log.Print("SideCarAuthSvcs Initializing")
+	//logFileName := filepath.Join(logDir, "app.log")
+	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("Error opening log file: %s", err)
+	}
+
+	log.SetOutput(logFile)
+}
+
+// Log logs a message with a timestamp
+func Log(message string) {
+	log.Printf("%s", message)
+}
+
+// LogF logs a variable name and its value with a timestamp
+func LogF(variableName string, variableValue interface{}) {
+	log.Printf("%s: %v", variableName, variableValue)
 }

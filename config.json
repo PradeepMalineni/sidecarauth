@@ -1,5 +1,6 @@
 {
     "AuthConfig": {
+        "timeout" : 60,
         "DEV": {
             "TokenURL": "http://127.0.0.1:8080/generate-token",
             "AuthorizationHeader": "Basic 123abc"
