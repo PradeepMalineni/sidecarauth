@@ -1,0 +1,16 @@
+2024/02/04 16:27:04 SideCarAuthSvcs Started
+2024/02/04 16:27:04 CONFIG_FILE_PATH environment variable not set.
+2024/02/04 16:29:01 SideCarAuthSvcs Started
+2024/02/04 16:29:01 [2024-02-04]: Error loading configuration open Users/bhumi/sidecarauth/sidecarauth/config.json: no such file or directory:
+2024/02/04 16:30:26 SideCarAuthSvcs Started
+2024/02/04 16:30:26 [2024-02-04]: Error loading configuration open Users/bhumi/sidecarauth/sidecarauth/config.json: no such file or directory:
+2024/02/04 16:33:15 SideCarAuthSvcs Started
+2024/02/04 16:33:15 [2024-02-04]: Authentication Listeners enabled
+2024/02/04 16:33:15 Error starting HTTP server: listen tcp :8080: bind: address already in use
+2024/02/04 16:34:01 SideCarAuthSvcs Started
+2024/02/04 16:34:01 [2024-02-04]: Authentication Listeners enabled
+2024/02/04 16:34:19 [2024-02-02]: Auth Module : getAccessToken
+2024/02/04 16:34:19 [2024-02-02]: Auth Module : getAccessToken token obtained sucessfully
+2024/02/04 16:34:19 Error making request: error making request: Get "https://127.0.0.1:8445/api": tls: failed to verify certificate: x509: certificate signed by unknown authority
+2024/02/04 16:34:19 [2024-02-02]: Auth Module : getAccessToken
+2024/02/04 16:34:19 Error making request: error making request: Get "https://127.0.0.1:8445/favicon.ico": tls: failed to verify certificate: x509: certificate signed by unknown authority
