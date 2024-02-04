@@ -3,6 +3,7 @@ package service
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,7 +11,7 @@ import (
 )
 
 // MakeRequest makes a request to the server
-func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string, headers http.Header) (string, error) {
+func MakeRequest(ctx context.Context, backendURL, authToken, httpMethod, contentType, payload string, headers http.Header) (string, error) {
 	// Create a TLS configuration
 	/*tlsConfig := &tls.Config{
 		InsecureSkipVerify: true, // Set to true to skip server certificate verification

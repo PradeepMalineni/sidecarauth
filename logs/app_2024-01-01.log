@@ -9,3 +9,16 @@
 2024/01/25 21:15:41 SideCarAuthSvcs Initializing
 2024/01/25 21:15:41 [2024-01-01]: Error :CONFIG_FILE_PATH environment variable not set. Program Exit
 2024/01/25 21:16:53 SideCarAuthSvcs Initializing
+2024/01/31 19:41:58 SideCarAuthSvcs Initializing
+2024/01/31 19:41:58 [2024-01-01]: Error :CONFIG_FILE_PATH environment variable not set. Program Exit
+2024/01/31 19:42:19 SideCarAuthSvcs Initializing
+2024/01/31 19:44:21 [2024-01-01]: Error extracting port from host: 
+2024/01/31 19:44:21 [2024-01-01]: Auth Module : getAccessToken
+2024/01/31 19:44:21 [2024-01-01]: Error Auth Module Error performing HTTP request: Post "http://127.0.0.1:8080/generate-token": dial tcp 127.0.0.1:8080: connect: connection refused
+2024/01/31 19:44:21 [2024-01-01]: Auth Module : getAccessToken
+2024/02/01 21:23:16 [2024-02-02]: Error extracting port from host: 
+2024/02/01 21:23:16 [2024-02-02]: Auth Module : getAccessToken
+2024/02/01 21:54:22 [2024-02-02]: Error extracting port from host: 
+2024/02/01 21:54:22 [2024-02-02]: Auth Module : getAccessToken
+2024/02/01 21:54:41 [2024-02-02]: Error extracting port from host: 
+2024/02/01 21:54:41 [2024-02-02]: Auth Module : getAccessToken

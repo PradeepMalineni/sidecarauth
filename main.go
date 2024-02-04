@@ -1,15 +1,8 @@
-/*
-Copyright (c) 2022-2024 All rights reserved.
-
-
-For inquiries or collaboration, please contact:
-- Pradeep Malineni <pradeep.malineni@hotmail.com>
-- Bhumika Pehwani <bhumika15peshwani8@gmail.com>
-*/
-//testing for collaboration
+// main.go
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -17,152 +10,139 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"os/signal"
 	"sidecarauth/auth"
 	"sidecarauth/config"
 	"sidecarauth/service"
+	"syscall"
 	"time"
 )
 
 func main() {
-
-	// Generate a timestamp
 	currentTime := time.Now()
-	// Format the timestamp as YYYY-MM-DD_HH-MM-SS
-	timestampFormat := "2006-01-01"
-	// Specify the directory name
+	timestampFormat := "2006-01-02"
 	logDir := "logs"
-	//updated the code here only
 
-	// Create the directory if it doesn't exist
 	if _, err := os.Stat(logDir); os.IsNotExist(err) {
 		err := os.MkdirAll(logDir, 0755)
 		if err != nil {
-			fmt.Println("Error creating directory:", err)
-			return
+			log.Fatalf("[%s]: Error creating directory: %v", currentTime.Format(timestampFormat), err)
 		}
-		fmt.Printf("Created directory: %s\n", logDir)
+		fmt.Printf("[%s]: Created directory: %s\n", currentTime.Format(timestampFormat), logDir)
 	}
 
-	// Generate the log file name with the current timestamp
-	applogFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
-	//errlogFileName := fmt.Sprintf("%s/error_%s.log", logDir, currentTime.Format(timestampFormat))
-	//txlogFileName := fmt.Sprintf("%s/transaction_%s.log", logDir, currentTime.Format(timestampFormat))
-
-	// Open or create a log file
-	logFile, err := os.OpenFile(applogFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
+	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("[%s]: Error opening log file: %s", time.Now().Format(timestampFormat), err)
+		log.Fatalf("[%s]: Error opening log file: %v", currentTime.Format(timestampFormat), err)
 	}
 	defer logFile.Close()
 
-	// Set log output to both console and the log file
 	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
-	log.Print("SideCarAuthSvcs Initializing")
+	log.Print("SideCarAuthSvcs Started")
 
-	// Read the file path from the environment variable
 	configFilePath := os.Getenv("CONFIG_FILE_PATH")
 	if configFilePath == "" {
-		//fmt.Println("CONFIG_FILE_PATH environment variable not set.")
-		//log.Printf("Error :ONFIG_FILE_PATH environment variable not set. Program Exit")
-		log.Printf("[%s]: Error :CONFIG_FILE_PATH environment variable not set. Program Exit", time.Now().Format(timestampFormat))
-
-		os.Exit(1)
+		log.Fatal("CONFIG_FILE_PATH environment variable not set.")
 	}
 
 	config, err := config.LoadConfig(configFilePath)
 	if err != nil {
-		log.Printf("[%s]: Error loading configuration %s:", time.Now().Format(timestampFormat), err)
+		log.Fatalf("[%s]: Error loading configuration %s:", currentTime.Format(timestampFormat), err)
 	}
 
-	// Create an instance of AuthHandler for each environment
 	authHandlers := make(map[string]*auth.AuthHandler)
-	//iterate over the config list
 	for env, envConfig := range config.AuthConfig {
 		authHandler := auth.NewAuthHandler(envConfig)
 		authHandlers[env] = authHandler
 	}
-	//log.Printf("[%s]: Authentication Listners enabled", currentTime.Format(timestampFormat))
+	log.Printf("[%s]: Authentication Listeners enabled", currentTime.Format(timestampFormat))
 
 	http.HandleFunc(config.ListenerConfig.ListenerURI, func(w http.ResponseWriter, r *http.Request) {
-		// Get the port from the request URL
-		_, port, err := net.SplitHostPort(r.Host)
-		if err != nil {
-			//fmt.Printf("[%s]: Error extracting port from host: %v\n", currentTime.Format(timestampFormat), err)
-			log.Printf("[%s]: Error extracting port from host: %v\n", time.Now().Format(timestampFormat), err)
-			return
-		}
-
-		// Choose the environment based on the port
-		var env string
-		for e, p := range config.ListenerConfig.PortNumber {
-			if p == port {
-				env = e
-				break
-			}
-		}
-
-		// Check if environment is found
-		if env == "" {
-			//fmt.Printf("[%s]: No environment found for port: %s\n", currentTime.Format(timestampFormat), port)
-			log.Printf("[%s]: No environment found for port: %s\n", time.Now().Format(timestampFormat), port)
-			return
-		}
-		log.Printf("[%s]: Error extracting port from host: \n", time.Now().Format(timestampFormat))
-
-		// Initialize AuthHandler with configuration values
-		authHandlers[env].Initialize()
-
-		tokenResponse, err := newFunction(authHandlers, env)
-		if err != nil {
-			http.Error(w, "Error getting access token", http.StatusInternalServerError)
-			return
-		}
-
-		responseJSON, err := json.Marshal(tokenResponse)
-		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(responseJSON)
-
-		payload, err := io.ReadAll(r.Body)
-		if err != nil {
-			fmt.Println("Error reading request body:", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-
-		httpMethod := r.Method
-		contentType := r.Header.Get("Content-Type")
-		if contentType == "" {
-			contentType = "NA"
-		}
-		uri := r.URL.Path
-		backendURL := config.ServiceConfig[env].ApiURL + uri
-		accessToken := "Bearer " + tokenResponse.AccessToken
-		formattedResponse, err := service.MakeRequest(backendURL, accessToken, httpMethod, contentType, string(payload), r.Header)
-		if err != nil {
-			fmt.Println("Error making request:", err)
-			return
-		}
-		fmt.Fprintf(w, "\n\nFormatted Response: %s", formattedResponse)
+		handleHTTP(authHandlers, config, w, r)
 	})
 
-	// Start HTTP server for each configured port
-	for env, port := range config.ListenerConfig.PortNumber {
-		env, port := env, port // Capture variables for the goroutine
-		go func() {
-			fmt.Printf("Go HTTP Listener for %s is listening on port %s...\n", env, port)
-			err := http.ListenAndServe(":"+port, nil)
-			if err != nil {
-				log.Fatalf("Error starting HTTP server for %s: %v", env, err)
-			}
-		}()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	srv := &http.Server{Addr: ":8080"}
+
+	go func() {
+		fmt.Printf("Go HTTP Listener is listening on port 8080...\n")
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("Error starting HTTP server: %v", err)
+		}
+	}()
+
+	sigint := make(chan os.Signal, 1)
+	signal.Notify(sigint, os.Interrupt, syscall.SIGTERM)
+
+	<-sigint
+	log.Println("Shutting down gracefully...")
+
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Fatalf("Error shutting down server: %v", err)
+	}
+}
+
+func handleHTTP(authHandlers map[string]*auth.AuthHandler, config config.Config, w http.ResponseWriter, r *http.Request) {
+	_, port, err := net.SplitHostPort(r.Host)
+	if err != nil {
+		log.Printf("[%s]: Error extracting port from host: %v\n", time.Now().Format("2006-01-02"), err)
+		return
 	}
 
-	select {}
+	var env string
+	for e, p := range config.ListenerConfig.PortNumber {
+		if p == port {
+			env = e
+			break
+		}
+	}
+
+	if env == "" {
+		log.Printf("[%s]: No environment found for port: %s\n", time.Now().Format("2006-01-02"), port)
+		return
+	}
+
+	authHandlers[env].Initialize()
+
+	tokenResponse, err := newFunction(authHandlers, env)
+	if err != nil {
+		http.Error(w, "Error getting access token", http.StatusInternalServerError)
+		return
+	}
+
+	responseJSON, err := json.Marshal(tokenResponse)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(responseJSON)
+
+	payload, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Println("Error reading request body:", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	httpMethod := r.Method
+	contentType := r.Header.Get("Content-Type")
+	if contentType == "" {
+		contentType = "NA"
+	}
+	uri := r.URL.Path
+	backendURL := config.ServiceConfig[env].ApiURL + uri
+	accessToken := "Bearer " + tokenResponse.AccessToken
+	formattedResponse, err := service.MakeRequest(context.Background(), backendURL, accessToken, httpMethod, contentType, string(payload), r.Header)
+	if err != nil {
+		log.Println("Error making request:", err)
+		return
+	}
+	fmt.Fprintf(w, "\n\nFormatted Response: %s", formattedResponse)
 }
 
 func newFunction(authHandlers map[string]*auth.AuthHandler, env string) (auth.TokenResponse, error) {
