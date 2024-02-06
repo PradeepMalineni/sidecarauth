@@ -52,7 +52,7 @@ func main() {
 	authHandlers := make(map[string]*auth.AuthHandler)
 	//iterate over the config list
 	for env, envConfig := range config.AuthConfig {
-		authHandler, err := auth.NewAuthHandler(env, envConfig)
+		authHandler := auth.NewAuthHandler(env, envConfig)
 		authHandlers[env] = authHandler
 	}
 
@@ -81,10 +81,14 @@ func main() {
 			logger.LogF("No environment found for port:", port)
 			return
 		}
-		logger.LogF("authHandlers Initalizing the token request for  ", env)
+		logger.LogF("authHandlers Initalizing the token request for ", env)
 
 		// Initialize AuthHandler with configuration values
-		authHandlers[env].Initialize()
+		err = authHandlers[env].Initialize()
+		if err != nil {
+			http.Error(w, "Error getting access token", http.StatusInternalServerError)
+			return
+		}
 
 		tokenResponse, err := newFunction(authHandlers, env)
 		if err != nil {
@@ -122,10 +126,13 @@ func main() {
 
 		formattedResponse, err := service.MakeRequest(backendURL, accessToken, httpMethod, contentType, string(payload), r.Header)
 		if err != nil {
-			fmt.Println("Error making request:", err)
+			//fmt.Println("Error making request:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			logger.LogF("Error making request:", err)
+
 			return
 		}
-		fmt.Fprintf(w, "\n\nFormatted Response: %s", formattedResponse)
+		logger.LogF("Formatted Response:", formattedResponse)
 	})
 
 	// Start HTTP server for each configured port
@@ -157,7 +164,6 @@ func main() {
 }
 
 func newFunction(authHandlers map[string]*auth.AuthHandler, env string) (auth.TokenResponse, error) {
-	logger.Log("newFuncion check the token respose")
 	tokenResponse, err := authHandlers[env].GetAccessToken()
 	return tokenResponse, err
 }

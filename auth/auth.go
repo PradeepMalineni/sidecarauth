@@ -36,24 +36,24 @@ type AuthHandler struct {
 }
 
 // NewAuthHandler creates a new instance of AuthHandler
-func NewAuthHandler(env string, envConfig config.AuthConfig) (*AuthHandler, error) {
+func NewAuthHandler(env string, envConfig config.AuthConfig) *AuthHandler {
 	logger.LogF("Auth Module :  Authentication Handler initailizing:", env)
 	return &AuthHandler{
 		config: envConfig,
-	}, nil
+	}
 }
 
 // Initialize is called with the configuration values
-func (a *AuthHandler) Initialize() (*http.Response, err) {
+func (a *AuthHandler) Initialize() error {
 	// Call the function to get the initial access token
 	logger.Log("Auth Module : getAccessToken func call")
-	//res, =a.getAccessToken()
-
-	if resp, err := a.getAccessToken(); err != nil {
-		return nil, err // Return an error if initialization fails
+	err := a.getAccessToken()
+	if err != nil {
+		logger.LogF("Auth Module get Acesstoken Initialize error", err)
+		return err
 	}
+	return nil
 
-	return resp, nil
 }
 
 // GetAccessToken function to get the access token
@@ -69,13 +69,16 @@ func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 		// Token is expired or about to expire, refresh it
 		logger.Log("Auth Module : GetAccessToken func call2")
 
-		a.getAccessToken()
+		err := a.getAccessToken()
+		if err != nil {
+			logger.LogF("Auth Module get Acesstoken error", err)
+			return TokenResponse{}, err
+		}
 	}
-
 	return a.tokenResponse, nil
 }
 
-func (a *AuthHandler) getAccessToken() (*http.Response, err) {
+func (a *AuthHandler) getAccessToken() error {
 	// Lock to ensure thread-safe access
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -85,7 +88,7 @@ func (a *AuthHandler) getAccessToken() (*http.Response, err) {
 		now := time.Now().Unix()
 		if now < a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt-60 { // 60 seconds before expiration
 			// Token is not close to expiration, no need to refresh
-			return err
+			return nil
 		}
 
 	}
@@ -107,7 +110,7 @@ func (a *AuthHandler) getAccessToken() (*http.Response, err) {
 
 	req, err := http.NewRequest("POST", a.config.TokenURL, payload)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
@@ -115,32 +118,29 @@ func (a *AuthHandler) getAccessToken() (*http.Response, err) {
 
 	res, err := client.Do(req)
 	if err != nil {
-		http.Error(w, "Backend service is unavailable", http.StatusInternalServerError)
+		//http.Error( "Backend service is unavailable", http.StatusInternalServerError)
 		logger.LogF("Auth Module : Error performing HTTP request to IDP service:", err)
-		return
+		return err
 	}
 	// Close the response body to ensure proper connection closure
-	defer func() {
-		if err := res.Body.Close(); err != nil {
-			logger.LogF("Error closing response body:", err)
-		}
-	}()
 
-	//defer res.Body.Close()
+	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		logger.LogF("Error performing HTTP request:", err)
-		return
+		return err
 	}
 	if res.StatusCode != http.StatusOK {
 		a.handleError(body)
-		return
+		return err
 	}
 	err = json.Unmarshal(body, &a.tokenResponse)
 	if err != nil {
 		logger.LogF("Error unmarshalling JSON:", err)
-		return
+		return err
 	}
+
+	return nil
 
 }
 
