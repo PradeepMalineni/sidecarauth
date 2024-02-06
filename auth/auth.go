@@ -36,18 +36,24 @@ type AuthHandler struct {
 }
 
 // NewAuthHandler creates a new instance of AuthHandler
-func NewAuthHandler(env string, envConfig config.AuthConfig) *AuthHandler {
+func NewAuthHandler(env string, envConfig config.AuthConfig) (*AuthHandler, error) {
 	logger.LogF("Auth Module :  Authentication Handler initailizing:", env)
 	return &AuthHandler{
 		config: envConfig,
-	}
+	}, nil
 }
 
 // Initialize is called with the configuration values
-func (a *AuthHandler) Initialize() {
+func (a *AuthHandler) Initialize() (*http.Response, err) {
 	// Call the function to get the initial access token
 	logger.Log("Auth Module : getAccessToken func call")
-	a.getAccessToken()
+	//res, =a.getAccessToken()
+
+	if resp, err := a.getAccessToken(); err != nil {
+		return nil, err // Return an error if initialization fails
+	}
+
+	return resp, nil
 }
 
 // GetAccessToken function to get the access token
@@ -69,7 +75,7 @@ func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 	return a.tokenResponse, nil
 }
 
-func (a *AuthHandler) getAccessToken() {
+func (a *AuthHandler) getAccessToken() (*http.Response, err) {
 	// Lock to ensure thread-safe access
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -79,7 +85,7 @@ func (a *AuthHandler) getAccessToken() {
 		now := time.Now().Unix()
 		if now < a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt-60 { // 60 seconds before expiration
 			// Token is not close to expiration, no need to refresh
-			return
+			return err
 		}
 
 	}
@@ -99,13 +105,17 @@ func (a *AuthHandler) getAccessToken() {
 	// Use configURL and authHeader as needed
 	payload := strings.NewReader("grant_type=client_credentials")
 
-	req, _ := http.NewRequest("POST", a.config.TokenURL, payload)
+	req, err := http.NewRequest("POST", a.config.TokenURL, payload)
+	if err != nil {
+		return nil, err
+	}
 
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
 	req.Header.Add("Authorization", a.config.AuthorizationHeader)
 
 	res, err := client.Do(req)
 	if err != nil {
+		http.Error(w, "Backend service is unavailable", http.StatusInternalServerError)
 		logger.LogF("Auth Module : Error performing HTTP request to IDP service:", err)
 		return
 	}

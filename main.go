@@ -52,7 +52,7 @@ func main() {
 	authHandlers := make(map[string]*auth.AuthHandler)
 	//iterate over the config list
 	for env, envConfig := range config.AuthConfig {
-		authHandler := auth.NewAuthHandler(env, envConfig)
+		authHandler, err := auth.NewAuthHandler(env, envConfig)
 		authHandlers[env] = authHandler
 	}
 
