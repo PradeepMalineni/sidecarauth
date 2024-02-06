@@ -26,38 +26,14 @@ import (
 func main() {
 
 	// Generate a timestamp
-	currentTime := time.Now()
+	//currentTime := time.Now()
 	// Format the timestamp as YYYY-MM-DD_HH-MM-SS
 	timestampFormat := "2006-01-01"
 	// Specify the directory name
-	logDir := "logs"
-	//updated the code here only
-
-	// Create the directory if it doesn't exist
-	if _, err := os.Stat(logDir); os.IsNotExist(err) {
-		err := os.MkdirAll(logDir, 0755)
-		if err != nil {
-			fmt.Println("Error creating directory:", err)
-			return
-		}
-		fmt.Printf("Created directory: %s\n", logDir)
-	}
 
 	// Generate the log file name with the current timestamp
-	applogFileName := fmt.Sprintf("%s/app_%s.log", logDir, currentTime.Format(timestampFormat))
-	//errlogFileName := fmt.Sprintf("%s/error_%s.log", logDir, currentTime.Format(timestampFormat))
-	//txlogFileName := fmt.Sprintf("%s/transaction_%s.log", logDir, currentTime.Format(timestampFormat))
-
-	// Open or create a log file
-	logFile, err := os.OpenFile(applogFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("[%s]: Error opening log file: %s", time.Now().Format(timestampFormat), err)
-	}
-	defer logFile.Close()
 
 	// Set log output to both console and the log file
-	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
-	log.Print("SideCarAuthSvcs Initializing")
 
 	// Read the file path from the environment variable
 	configFilePath := os.Getenv("CONFIG_FILE_PATH")
