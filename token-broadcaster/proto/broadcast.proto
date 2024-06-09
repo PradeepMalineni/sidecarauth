@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package broadcast;
+
+option go_package = "my-broadcast-system/proto;broadcast";
+
+service BroadcastService {
+  rpc BroadcastMessage (BroadcastRequest) returns (stream BroadcastResponse);
+}
+
+message BroadcastRequest {
+  string message = 1;
+}
+
+message BroadcastResponse {
+  string message = 1;
+}

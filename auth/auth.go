@@ -75,7 +75,9 @@ func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
 			return TokenResponse{}, err
 		}
 	}
+	//start protobuf sever instance
 	return a.tokenResponse, nil
+
 }
 
 func (a *AuthHandler) getAccessToken() error {
