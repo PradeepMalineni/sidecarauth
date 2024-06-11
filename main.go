@@ -52,6 +52,7 @@ func main() {
 	authHandlers := make(map[string]*auth.AuthHandler)
 	//iterate over the config list
 	for env, envConfig := range config.AuthConfig {
+		logger.LogF("loading env config", env)
 		authHandler := auth.NewAuthHandler(env, envConfig)
 		authHandlers[env] = authHandler
 	}
@@ -84,35 +85,44 @@ func main() {
 		logger.LogF("authHandlers Initalizing the token request for ", env)
 
 		// Initialize AuthHandler with configuration values
-		err = authHandlers[env].Initialize()
+		/*err = authHandlers[env].Initialize()
+		if err != nil {
+			http.Error(w, "Error getting access token", http.StatusInternalServerError)
+			return
+		}*/
+
+		err = authHandlers[env].GetOAuthToken()
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
 			return
 		}
 
-		tokenResponse, err := newFunction(authHandlers, env)
+		logger.LogF("authHandlers Initalizing the token request for1 ", authHandlers)
+
+		/*tokenResponse, err := newFunction(authHandlers, env)
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
 			return
-		}
+		}*/
 
-		responseJSON, err := json.Marshal(tokenResponse)
+		responseJSON, err := json.Marshal(authHandlers[env])
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			http.Error(w, "Internal Server Error1", http.StatusInternalServerError)
 			return
 		}
 
 		//Add logic not execute the followimng code without token response
-
-		w.Header().Set("Content-Type", "application/json")
+		//Comment these two liens
+		//w.Header().Set("Content-Type", "application/json")
 		w.Write(responseJSON)
 
 		payload, err := io.ReadAll(r.Body)
 		if err != nil {
 			fmt.Println("Error reading request body:", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			http.Error(w, "Internal Server Error2", http.StatusInternalServerError)
 			return
 		}
+		logger.LogF("Starting the API call ", r.Body)
 
 		httpMethod := r.Method
 		contentType := r.Header.Get("Content-Type")
@@ -121,18 +131,19 @@ func main() {
 		}
 		uri := r.URL.Path
 		backendURL := config.ServiceConfig[env].ApiURL + uri
-		accessToken := "Bearer " + tokenResponse.AccessToken
+		accessToken := "Bearer " + authHandlers[env].TokenResponse.AccessToken
 		logger.Log("Initating the API Request")
 
 		formattedResponse, err := service.MakeRequest(backendURL, accessToken, httpMethod, contentType, string(payload), r.Header)
 		if err != nil {
 			//fmt.Println("Error making request:", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			http.Error(w, "Internal Server Error4", http.StatusInternalServerError)
 			logger.LogF("Error making request:", err)
 
 			return
 		}
 		logger.LogF("Formatted Response:", formattedResponse)
+		w.Write([]byte(formattedResponse))
 	})
 
 	// Start HTTP server for each configured port
@@ -163,7 +174,7 @@ func main() {
 	select {}
 }
 
-func newFunction(authHandlers map[string]*auth.AuthHandler, env string) (auth.TokenResponse, error) {
+/*func newFunction(authHandlers map[string]*auth.AuthHandler, env string) (auth.TokenResponse, error) {
 	tokenResponse, err := authHandlers[env].GetAccessToken()
 	return tokenResponse, err
-}
+}*/

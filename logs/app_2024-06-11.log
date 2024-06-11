@@ -1,0 +1,661 @@
+2024/06/11 19:04:57 Sidecard Authentication service started ....
+2024/06/11 19:04:57 Error : loading configuration: json: cannot unmarshal number into Go struct field Config.AuthConfig of type config.AuthConfig
+2024/06/11 19:04:57 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:04:57 Authentication handler initiation started
+2024/06/11 19:04:57 loading env config: UAT
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:04:57 loading env config: PERF
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:04:57 loading env config: STAGE
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:04:57 loading env config: PROD
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:04:57 loading env config: timeout
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: timeout
+2024/06/11 19:04:57 loading env config: DEV
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:04:57 loading env config: SIT
+2024/06/11 19:04:57 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:05:32 Sidecard Authentication service started ....
+2024/06/11 19:05:32 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:05:32 Authentication handler initiation started
+2024/06/11 19:05:32 loading env config: UAT
+2024/06/11 19:05:32 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:05:32 loading env config: PERF
+2024/06/11 19:05:32 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:05:32 loading env config: STAGE
+2024/06/11 19:05:32 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:05:32 loading env config: PROD
+2024/06/11 19:05:32 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:05:32 loading env config: DEV
+2024/06/11 19:05:32 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:05:32 loading env config: SIT
+2024/06/11 19:05:32 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:06:16 Sidecard Authentication service started ....
+2024/06/11 19:06:16 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:06:16 Authentication handler initiation started
+2024/06/11 19:06:16 loading env config: PROD
+2024/06/11 19:06:16 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:06:16 loading env config: &{{  0 0 } {http://127.0.0.1:8085/generate-token Basic 123abc} {0 0}}
+2024/06/11 19:06:16 loading env config: DEV
+2024/06/11 19:06:16 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:06:16 loading env config: &{{  0 0 } {http://127.0.0.1:8080/generate-token Basic 123abc} {0 0}}
+2024/06/11 19:06:16 loading env config: SIT
+2024/06/11 19:06:16 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:06:16 loading env config: &{{  0 0 } {http://127.0.0.1:8081/generate-token Basic 123abc} {0 0}}
+2024/06/11 19:06:16 loading env config: UAT
+2024/06/11 19:06:16 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:06:16 loading env config: &{{  0 0 } {http://127.0.0.1:8082/generate-token Basic 123abc} {0 0}}
+2024/06/11 19:06:16 loading env config: PERF
+2024/06/11 19:06:16 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:06:16 loading env config: &{{  0 0 } {http://127.0.0.1:8083/generate-token Basic 123abc} {0 0}}
+2024/06/11 19:06:16 loading env config: STAGE
+2024/06/11 19:06:16 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:06:16 loading env config: &{{  0 0 } {http://127.0.0.1:8084/generate-token Basic 123abc} {0 0}}
+2024/06/11 19:11:40 Sidecard Authentication service started ....
+2024/06/11 19:11:40 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:11:40 Authentication handler initiation started
+2024/06/11 19:11:40 loading env config: STAGE
+2024/06/11 19:11:40 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:11:40 loading env config: &{{  0 0 } {http://127.0.0.1:8084/generate-token Basic 123abc} {0 0} 0}
+2024/06/11 19:11:40 loading env config: PROD
+2024/06/11 19:11:40 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:11:40 loading env config: &{{  0 0 } {http://127.0.0.1:8085/generate-token Basic 123abc} {0 0} 0}
+2024/06/11 19:11:40 loading env config: DEV
+2024/06/11 19:11:40 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:11:40 loading env config: &{{  0 0 } {http://127.0.0.1:8080/generate-token Basic 123abc} {0 0} 0}
+2024/06/11 19:11:40 loading env config: SIT
+2024/06/11 19:11:40 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:11:40 loading env config: &{{  0 0 } {http://127.0.0.1:8081/generate-token Basic 123abc} {0 0} 0}
+2024/06/11 19:11:40 loading env config: UAT
+2024/06/11 19:11:40 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:11:40 loading env config: &{{  0 0 } {http://127.0.0.1:8082/generate-token Basic 123abc} {0 0} 0}
+2024/06/11 19:11:40 loading env config: PERF
+2024/06/11 19:11:40 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:11:40 loading env config: &{{  0 0 } {http://127.0.0.1:8083/generate-token Basic 123abc} {0 0} 0}
+2024/06/11 19:23:33 HTTP Handler function execution started
+2024/06/11 19:23:33 Environment  : DEV
+2024/06/11 19:23:33 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:23:33 Auth Module : getAccessToken func call
+2024/06/11 19:23:33 Token data: {  0 0 }
+2024/06/11 19:23:33 Auth Module : New token request initiated
+2024/06/11 19:23:33 Auth Module : GetAccessToken func call
+2024/06/11 19:23:33 Initating the API Request
+2024/06/11 19:23:33 Servie API : API Request Started 
+2024/06/11 19:23:33 Servie API : HTTP GET call
+2024/06/11 19:23:33 http: superfluous response.WriteHeader call from main.main.func1 (main.go:132)
+2024/06/11 19:23:33 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 19:26:23 Sidecard Authentication service started ....
+2024/06/11 19:26:23 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:26:23 Authentication handler initiation started
+2024/06/11 19:26:23 loading env config: UAT
+2024/06/11 19:26:23 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:26:23 loading env config: PERF
+2024/06/11 19:26:23 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:26:23 loading env config: STAGE
+2024/06/11 19:26:23 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:26:23 loading env config: PROD
+2024/06/11 19:26:23 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:26:23 loading env config: DEV
+2024/06/11 19:26:23 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:26:23 loading env config: SIT
+2024/06/11 19:26:23 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:26:35 HTTP Handler function execution started
+2024/06/11 19:26:35 Environment  : DEV
+2024/06/11 19:26:35 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:26:35 Token data: {  0 0 }
+2024/06/11 19:26:35 Auth Module : New token request initiated
+2024/06/11 19:26:35 Auth Module : GetAccessToken func call
+2024/06/11 19:26:35 Initating the API Request
+2024/06/11 19:26:35 Servie API : API Request Started 
+2024/06/11 19:26:35 Servie API : HTTP GET call
+2024/06/11 19:26:35 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:26:35 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 19:29:50 Sidecard Authentication service started ....
+2024/06/11 19:29:50 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:29:50 Authentication handler initiation started
+2024/06/11 19:29:50 loading env config: UAT
+2024/06/11 19:29:50 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:29:50 loading env config: PERF
+2024/06/11 19:29:50 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:29:50 loading env config: STAGE
+2024/06/11 19:29:50 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:29:50 loading env config: PROD
+2024/06/11 19:29:50 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:29:50 loading env config: DEV
+2024/06/11 19:29:50 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:29:50 loading env config: SIT
+2024/06/11 19:29:50 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:29:57 HTTP Handler function execution started
+2024/06/11 19:29:57 Environment  : DEV
+2024/06/11 19:29:57 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:29:57 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 19:29:57 Auth Module : New token request initiated
+2024/06/11 19:29:57 Auth Module : GetAccessToken func call
+2024/06/11 19:29:57 Initating the API Request
+2024/06/11 19:29:57 Servie API : API Request Started 
+2024/06/11 19:29:57 Servie API : HTTP GET call
+2024/06/11 19:29:57 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:29:57 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 19:30:17 HTTP Handler function execution started
+2024/06/11 19:30:17 Environment  : SIT
+2024/06/11 19:30:17 authHandlers Initalizing the token request for : SIT
+2024/06/11 19:30:17 Token url for: http://127.0.0.1:8081/generate-token
+2024/06/11 19:30:17 Auth Module : New token request initiated
+2024/06/11 19:30:17 Auth Module : Error performing HTTP request to IDP service:: Post "http://127.0.0.1:8081/generate-token": dial tcp 127.0.0.1:8081: connect: connection refused
+2024/06/11 19:31:24 HTTP Handler function execution started
+2024/06/11 19:31:24 Environment  : SIT
+2024/06/11 19:31:24 authHandlers Initalizing the token request for : SIT
+2024/06/11 19:31:24 Token url for: http://127.0.0.1:8081/generate-token
+2024/06/11 19:31:24 Auth Module : New token request initiated
+2024/06/11 19:31:24 Auth Module : GetAccessToken func call
+2024/06/11 19:31:24 Initating the API Request
+2024/06/11 19:31:24 Servie API : API Request Started 
+2024/06/11 19:31:24 Servie API : HTTP GET call
+2024/06/11 19:31:24 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:31:24 Error making request:: error making request: Get "https://127.0.0.1:8446/": dial tcp 127.0.0.1:8446: connect: connection refused
+2024/06/11 19:32:22 HTTP Handler function execution started
+2024/06/11 19:32:22 Environment  : SIT
+2024/06/11 19:32:22 authHandlers Initalizing the token request for : SIT
+2024/06/11 19:32:22 Token url for: http://127.0.0.1:8081/generate-token
+2024/06/11 19:32:22 Auth Module : Token exist and will check for token validity
+2024/06/11 19:32:22 Auth Module : GetAccessToken func call
+2024/06/11 19:32:22 Initating the API Request
+2024/06/11 19:32:22 Servie API : API Request Started 
+2024/06/11 19:32:22 Servie API : HTTP GET call
+2024/06/11 19:32:22 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:32:22 Error making request:: error making request: Get "https://127.0.0.1:8446/": dial tcp 127.0.0.1:8446: connect: connection refused
+2024/06/11 19:32:36 HTTP Handler function execution started
+2024/06/11 19:32:36 Environment  : DEV
+2024/06/11 19:32:36 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:32:36 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 19:32:36 Auth Module : Token exist and will check for token validity
+2024/06/11 19:32:36 Auth Module : New token request initiated
+2024/06/11 19:32:36 Auth Module : GetAccessToken func call
+2024/06/11 19:32:36 Initating the API Request
+2024/06/11 19:32:36 Servie API : API Request Started 
+2024/06/11 19:32:36 Servie API : HTTP GET call
+2024/06/11 19:32:36 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:32:36 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 19:32:42 HTTP Handler function execution started
+2024/06/11 19:32:42 Environment  : SIT
+2024/06/11 19:32:42 authHandlers Initalizing the token request for : SIT
+2024/06/11 19:32:42 Token url for: http://127.0.0.1:8081/generate-token
+2024/06/11 19:32:42 Auth Module : Token exist and will check for token validity
+2024/06/11 19:32:42 Auth Module : New token request initiated
+2024/06/11 19:32:42 Auth Module : GetAccessToken func call
+2024/06/11 19:32:42 Initating the API Request
+2024/06/11 19:32:42 Servie API : API Request Started 
+2024/06/11 19:32:42 Servie API : HTTP GET call
+2024/06/11 19:32:42 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:32:42 Error making request:: error making request: Get "https://127.0.0.1:8446/": dial tcp 127.0.0.1:8446: connect: connection refused
+2024/06/11 19:32:46 HTTP Handler function execution started
+2024/06/11 19:32:46 Environment  : DEV
+2024/06/11 19:32:46 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:32:46 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 19:32:46 Auth Module : Token exist and will check for token validity
+2024/06/11 19:32:46 Auth Module : GetAccessToken func call
+2024/06/11 19:32:46 Initating the API Request
+2024/06/11 19:32:46 Servie API : API Request Started 
+2024/06/11 19:32:46 Servie API : HTTP GET call
+2024/06/11 19:32:46 http: superfluous response.WriteHeader call from main.main.func1 (main.go:137)
+2024/06/11 19:32:46 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 19:38:25 Sidecard Authentication service started ....
+2024/06/11 19:38:25 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:38:25 Authentication handler initiation started
+2024/06/11 19:38:25 loading env config: DEV
+2024/06/11 19:38:25 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:38:25 loading env config: SIT
+2024/06/11 19:38:25 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:38:25 loading env config: UAT
+2024/06/11 19:38:25 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:38:25 loading env config: PERF
+2024/06/11 19:38:25 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:38:25 loading env config: STAGE
+2024/06/11 19:38:25 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:38:25 loading env config: PROD
+2024/06/11 19:38:25 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:38:32 HTTP Handler function execution started
+2024/06/11 19:38:32 Environment  : DEV
+2024/06/11 19:38:32 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:38:32 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 19:38:32 Auth Module : New token request initiated
+2024/06/11 19:38:32 authHandlers Initalizing the token request for1 : map[DEV:0x140001341c0 PERF:0x14000134310 PROD:0x140001343f0 SIT:0x14000134230 STAGE:0x14000134380 UAT:0x140001342a0]
+2024/06/11 19:38:32 Auth Module : GetAccessToken func call
+2024/06/11 19:38:32 Initating the API Request
+2024/06/11 19:38:32 Servie API : API Request Started 
+2024/06/11 19:38:32 Servie API : HTTP GET call
+2024/06/11 19:38:32 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 19:38:32 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 19:59:50 Sidecard Authentication service started ....
+2024/06/11 19:59:50 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 19:59:50 Authentication handler initiation started
+2024/06/11 19:59:50 loading env config: UAT
+2024/06/11 19:59:50 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 19:59:50 loading env config: PERF
+2024/06/11 19:59:50 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 19:59:50 loading env config: STAGE
+2024/06/11 19:59:50 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 19:59:50 loading env config: PROD
+2024/06/11 19:59:50 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 19:59:50 loading env config: DEV
+2024/06/11 19:59:50 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 19:59:50 loading env config: SIT
+2024/06/11 19:59:50 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 19:59:58 HTTP Handler function execution started
+2024/06/11 19:59:58 Environment  : DEV
+2024/06/11 19:59:58 authHandlers Initalizing the token request for : DEV
+2024/06/11 19:59:58 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 19:59:58 Auth Module : New token request initiated
+2024/06/11 19:59:58 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 19:59:58 Initating the API Request
+2024/06/11 19:59:58 Servie API : API Request Started 
+2024/06/11 19:59:58 Servie API : HTTP GET call
+2024/06/11 19:59:58 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 19:59:58 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:00:01 HTTP Handler function execution started
+2024/06/11 20:00:01 Environment  : DEV
+2024/06/11 20:00:01 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:00:01 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:00:01 Auth Module : Token exist and will check for token validity
+2024/06/11 20:00:01 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 20:00:01 Initating the API Request
+2024/06/11 20:00:01 Servie API : API Request Started 
+2024/06/11 20:00:01 Servie API : HTTP GET call
+2024/06/11 20:00:01 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:00:01 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:00:04 HTTP Handler function execution started
+2024/06/11 20:00:04 Environment  : DEV
+2024/06/11 20:00:04 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:00:04 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:00:04 Auth Module : Token exist and will check for token validity
+2024/06/11 20:00:04 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 20:00:04 Initating the API Request
+2024/06/11 20:00:04 Servie API : API Request Started 
+2024/06/11 20:00:04 Servie API : HTTP GET call
+2024/06/11 20:00:04 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:00:04 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:00:12 HTTP Handler function execution started
+2024/06/11 20:00:12 Environment  : SIT
+2024/06/11 20:00:12 authHandlers Initalizing the token request for : SIT
+2024/06/11 20:00:12 Token url for: http://127.0.0.1:8081/generate-token
+2024/06/11 20:00:12 Auth Module : New token request initiated
+2024/06/11 20:00:12 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 20:00:12 Initating the API Request
+2024/06/11 20:00:12 Servie API : API Request Started 
+2024/06/11 20:00:12 Servie API : HTTP GET call
+2024/06/11 20:00:12 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:00:12 Error making request:: error making request: Get "https://127.0.0.1:8446/": dial tcp 127.0.0.1:8446: connect: connection refused
+2024/06/11 20:00:15 HTTP Handler function execution started
+2024/06/11 20:00:15 Environment  : SIT
+2024/06/11 20:00:15 authHandlers Initalizing the token request for : SIT
+2024/06/11 20:00:15 Token url for: http://127.0.0.1:8081/generate-token
+2024/06/11 20:00:15 Auth Module : Token exist and will check for token validity
+2024/06/11 20:00:15 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 20:00:15 Initating the API Request
+2024/06/11 20:00:15 Servie API : API Request Started 
+2024/06/11 20:00:15 Servie API : HTTP GET call
+2024/06/11 20:00:15 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:00:15 Error making request:: error making request: Get "https://127.0.0.1:8446/": dial tcp 127.0.0.1:8446: connect: connection refused
+2024/06/11 20:00:19 HTTP Handler function execution started
+2024/06/11 20:00:19 Environment  : DEV
+2024/06/11 20:00:19 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:00:19 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:00:19 Auth Module : Token exist and will check for token validity
+2024/06/11 20:00:19 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 20:00:19 Initating the API Request
+2024/06/11 20:00:19 Servie API : API Request Started 
+2024/06/11 20:00:19 Servie API : HTTP GET call
+2024/06/11 20:00:19 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:00:19 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:01:29 HTTP Handler function execution started
+2024/06/11 20:01:29 Environment  : DEV
+2024/06/11 20:01:29 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:01:29 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:01:29 Auth Module : Token exist and will check for token validity
+2024/06/11 20:01:29 Auth Module : New token request initiated
+2024/06/11 20:01:29 authHandlers Initalizing the token request for1 : map[DEV:0x14000134380 PERF:0x14000134230 PROD:0x14000134310 SIT:0x140001343f0 STAGE:0x140001342a0 UAT:0x140001341c0]
+2024/06/11 20:01:29 Initating the API Request
+2024/06/11 20:01:29 Servie API : API Request Started 
+2024/06/11 20:01:29 Servie API : HTTP GET call
+2024/06/11 20:01:29 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:01:29 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:02:34 Sidecard Authentication service started ....
+2024/06/11 20:02:34 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:02:34 Authentication handler initiation started
+2024/06/11 20:02:34 loading env config: UAT
+2024/06/11 20:02:34 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:02:34 loading env config: PERF
+2024/06/11 20:02:34 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:02:34 loading env config: STAGE
+2024/06/11 20:02:34 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:02:34 loading env config: PROD
+2024/06/11 20:02:34 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:02:34 loading env config: DEV
+2024/06/11 20:02:34 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:02:34 loading env config: SIT
+2024/06/11 20:02:34 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:02:40 HTTP Handler function execution started
+2024/06/11 20:02:40 Environment  : DEV
+2024/06/11 20:02:40 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:02:40 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:02:40 Auth Module : New token request initiated
+2024/06/11 20:02:40 authHandlers Initalizing the token request for1 : map[DEV:0x140000de380 PERF:0x140000de230 PROD:0x140000de310 SIT:0x140000de3f0 STAGE:0x140000de2a0 UAT:0x140000de1c0]
+2024/06/11 20:02:40 Initating the API Request
+2024/06/11 20:02:40 Servie API : API Request Started 
+2024/06/11 20:02:40 Servie API : HTTP GET call
+2024/06/11 20:02:40 http: superfluous response.WriteHeader call from main.main.func1 (main.go:139)
+2024/06/11 20:02:40 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:03:35 Sidecard Authentication service started ....
+2024/06/11 20:03:35 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:03:35 Authentication handler initiation started
+2024/06/11 20:03:35 loading env config: PROD
+2024/06/11 20:03:35 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:03:35 loading env config: DEV
+2024/06/11 20:03:35 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:03:35 loading env config: SIT
+2024/06/11 20:03:35 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:03:35 loading env config: UAT
+2024/06/11 20:03:35 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:03:35 loading env config: PERF
+2024/06/11 20:03:35 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:03:35 loading env config: STAGE
+2024/06/11 20:03:35 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:03:45 HTTP Handler function execution started
+2024/06/11 20:03:45 Environment  : DEV
+2024/06/11 20:03:45 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:03:45 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:03:45 Auth Module : New token request initiated
+2024/06/11 20:03:45 authHandlers Initalizing the token request for1 : map[DEV:0x14000134230 PERF:0x14000134380 PROD:0x140001341c0 SIT:0x140001342a0 STAGE:0x140001343f0 UAT:0x14000134310]
+2024/06/11 20:03:45 Starting the API call : {}
+2024/06/11 20:03:45 Initating the API Request
+2024/06/11 20:03:45 Servie API : API Request Started 
+2024/06/11 20:03:45 Servie API : HTTP GET call
+2024/06/11 20:03:45 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:03:45 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:04:22 HTTP Handler function execution started
+2024/06/11 20:04:22 Environment  : DEV
+2024/06/11 20:04:22 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:04:22 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:04:22 Auth Module : Token exist and will check for token validity
+2024/06/11 20:04:22 authHandlers Initalizing the token request for1 : map[DEV:0x14000134230 PERF:0x14000134380 PROD:0x140001341c0 SIT:0x140001342a0 STAGE:0x140001343f0 UAT:0x14000134310]
+2024/06/11 20:04:22 Starting the API call : {}
+2024/06/11 20:04:22 Initating the API Request
+2024/06/11 20:04:22 Servie API : API Request Started 
+2024/06/11 20:04:22 Servie API : HTTP GET call
+2024/06/11 20:04:22 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:04:22 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:04:29 HTTP Handler function execution started
+2024/06/11 20:04:29 Environment  : DEV
+2024/06/11 20:04:29 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:04:29 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:04:29 Auth Module : Token exist and will check for token validity
+2024/06/11 20:04:29 authHandlers Initalizing the token request for1 : map[DEV:0x14000134230 PERF:0x14000134380 PROD:0x140001341c0 SIT:0x140001342a0 STAGE:0x140001343f0 UAT:0x14000134310]
+2024/06/11 20:04:29 Starting the API call : {}
+2024/06/11 20:04:29 Initating the API Request
+2024/06/11 20:04:29 Servie API : API Request Started 
+2024/06/11 20:04:29 Servie API : HTTP GET call
+2024/06/11 20:04:29 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:04:29 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:05:45 HTTP Handler function execution started
+2024/06/11 20:05:45 Environment  : DEV
+2024/06/11 20:05:45 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:05:45 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:05:45 Auth Module : Token exist and will check for token validity
+2024/06/11 20:05:45 Auth Module : New token request initiated
+2024/06/11 20:05:45 authHandlers Initalizing the token request for1 : map[DEV:0x14000134230 PERF:0x14000134380 PROD:0x140001341c0 SIT:0x140001342a0 STAGE:0x140001343f0 UAT:0x14000134310]
+2024/06/11 20:05:45 Starting the API call : {}
+2024/06/11 20:05:45 Initating the API Request
+2024/06/11 20:05:45 Servie API : API Request Started 
+2024/06/11 20:05:45 Servie API : HTTP GET call
+2024/06/11 20:05:45 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:05:45 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:05:48 HTTP Handler function execution started
+2024/06/11 20:05:48 Environment  : DEV
+2024/06/11 20:05:48 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:05:48 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:05:48 Auth Module : Token exist and will check for token validity
+2024/06/11 20:05:48 authHandlers Initalizing the token request for1 : map[DEV:0x14000134230 PERF:0x14000134380 PROD:0x140001341c0 SIT:0x140001342a0 STAGE:0x140001343f0 UAT:0x14000134310]
+2024/06/11 20:05:48 Starting the API call : {}
+2024/06/11 20:05:48 Initating the API Request
+2024/06/11 20:05:48 Servie API : API Request Started 
+2024/06/11 20:05:48 Servie API : HTTP GET call
+2024/06/11 20:05:48 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:05:48 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:07:08 Sidecard Authentication service started ....
+2024/06/11 20:07:08 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:07:08 Authentication handler initiation started
+2024/06/11 20:07:08 loading env config: PROD
+2024/06/11 20:07:08 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:07:08 loading env config: DEV
+2024/06/11 20:07:08 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:07:08 loading env config: SIT
+2024/06/11 20:07:08 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:07:08 loading env config: UAT
+2024/06/11 20:07:08 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:07:08 loading env config: PERF
+2024/06/11 20:07:08 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:07:08 loading env config: STAGE
+2024/06/11 20:07:08 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:07:12 HTTP Handler function execution started
+2024/06/11 20:07:12 Environment  : DEV
+2024/06/11 20:07:12 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:07:12 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:07:12 Auth Module : New token request initiated
+2024/06/11 20:07:12 authHandlers Initalizing the token request for1 : map[DEV:0x14000156230 PERF:0x14000156380 PROD:0x140001561c0 SIT:0x140001562a0 STAGE:0x140001563f0 UAT:0x14000156310]
+2024/06/11 20:07:12 Starting the API call : {}
+2024/06/11 20:07:12 Initating the API Request
+2024/06/11 20:07:12 Servie API : API Request Started 
+2024/06/11 20:07:12 Servie API : HTTP GET call
+2024/06/11 20:07:12 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:07:12 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:10:52 Sidecard Authentication service started ....
+2024/06/11 20:10:52 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:10:52 Authentication handler initiation started
+2024/06/11 20:10:52 loading env config: DEV
+2024/06/11 20:10:52 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:10:52 loading env config: SIT
+2024/06/11 20:10:52 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:10:52 loading env config: UAT
+2024/06/11 20:10:52 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:10:52 loading env config: PERF
+2024/06/11 20:10:52 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:10:52 loading env config: STAGE
+2024/06/11 20:10:52 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:10:52 loading env config: PROD
+2024/06/11 20:10:52 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:10:57 HTTP Handler function execution started
+2024/06/11 20:10:57 Environment  : DEV
+2024/06/11 20:10:57 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:10:57 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:10:57 Auth Module : New token request initiated
+2024/06/11 20:10:57 authHandlers Initalizing the token request for1 : map[DEV:0x140000de1c0 PERF:0x140000de310 PROD:0x140000de3f0 SIT:0x140000de230 STAGE:0x140000de380 UAT:0x140000de2a0]
+2024/06/11 20:10:57 Starting the API call : {}
+2024/06/11 20:10:57 Initating the API Request
+2024/06/11 20:10:57 Service API : API Request Started 
+2024/06/11 20:10:57 Service API : HTTP GET call
+2024/06/11 20:10:57 HTTP Error making request:: &{GET https://127.0.0.1:8445/ HTTP/1.1 1 1 map[] <nil> <nil> 0 [] false 127.0.0.1:8445 map[] map[] <nil> map[]   <nil> <nil> <nil> {{}}}
+2024/06/11 20:10:57 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:10:57 Error making request:: error making request: Get "https://127.0.0.1:8445/": http: server gave HTTP response to HTTPS client
+2024/06/11 20:12:26 Sidecard Authentication service started ....
+2024/06/11 20:12:26 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:12:26 Authentication handler initiation started
+2024/06/11 20:12:26 loading env config: STAGE
+2024/06/11 20:12:26 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:12:26 loading env config: PROD
+2024/06/11 20:12:26 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:12:26 loading env config: DEV
+2024/06/11 20:12:26 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:12:26 loading env config: SIT
+2024/06/11 20:12:26 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:12:26 loading env config: UAT
+2024/06/11 20:12:26 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:12:26 loading env config: PERF
+2024/06/11 20:12:26 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:12:31 HTTP Handler function execution started
+2024/06/11 20:12:31 Environment  : DEV
+2024/06/11 20:12:31 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:12:31 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:12:31 Auth Module : New token request initiated
+2024/06/11 20:12:31 authHandlers Initalizing the token request for1 : map[DEV:0x140001342a0 PERF:0x140001343f0 PROD:0x14000134230 SIT:0x14000134310 STAGE:0x140001341c0 UAT:0x14000134380]
+2024/06/11 20:12:31 Starting the API call : {}
+2024/06/11 20:12:31 Initating the API Request
+2024/06/11 20:12:31 Service API : API Request Started 
+2024/06/11 20:12:31 Service API : HTTP GET call
+2024/06/11 20:12:31 HTTP Error making request:: &{GET http://127.0.0.1:8445/ HTTP/1.1 1 1 map[] <nil> <nil> 0 [] false 127.0.0.1:8445 map[] map[] <nil> map[]   <nil> <nil> <nil> {{}}}
+2024/06/11 20:12:31 http: superfluous response.WriteHeader call from main.main.func1 (main.go:140)
+2024/06/11 20:12:31 Error making request:: error formatting JSON response: invalid character 'p' after top-level value
+2024/06/11 20:12:49 HTTP Handler function execution started
+2024/06/11 20:12:49 Environment  : DEV
+2024/06/11 20:12:49 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:12:49 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:12:49 Auth Module : Token exist and will check for token validity
+2024/06/11 20:12:49 authHandlers Initalizing the token request for1 : map[DEV:0x140001342a0 PERF:0x140001343f0 PROD:0x14000134230 SIT:0x14000134310 STAGE:0x140001341c0 UAT:0x14000134380]
+2024/06/11 20:12:49 Starting the API call : {}
+2024/06/11 20:12:49 Initating the API Request
+2024/06/11 20:12:49 Service API : API Request Started 
+2024/06/11 20:12:49 Service API : HTTP GET call
+2024/06/11 20:12:49 HTTP Error making request:: &{GET http://127.0.0.1:8445/api HTTP/1.1 1 1 map[] <nil> <nil> 0 [] false 127.0.0.1:8445 map[] map[] <nil> map[]   <nil> <nil> <nil> {{}}}
+2024/06/11 20:12:49 Formatted Response:: {
+  "authtoken": "Bearer 4698",
+  "ResponseBody": "API handler",
+  "Method": "GET",
+  "port": "8445"
+}
+2024/06/11 20:14:36 Sidecard Authentication service started ....
+2024/06/11 20:14:36 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:14:36 Authentication handler initiation started
+2024/06/11 20:14:36 loading env config: UAT
+2024/06/11 20:14:36 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:14:36 loading env config: PERF
+2024/06/11 20:14:36 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:14:36 loading env config: STAGE
+2024/06/11 20:14:36 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:14:36 loading env config: PROD
+2024/06/11 20:14:36 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:14:36 loading env config: DEV
+2024/06/11 20:14:36 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:14:36 loading env config: SIT
+2024/06/11 20:14:36 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:14:42 HTTP Handler function execution started
+2024/06/11 20:14:42 Environment  : DEV
+2024/06/11 20:14:42 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:14:42 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:14:42 Auth Module : New token request initiated
+2024/06/11 20:14:42 authHandlers Initalizing the token request for1 : map[DEV:0x14000158380 PERF:0x14000158230 PROD:0x14000158310 SIT:0x140001583f0 STAGE:0x140001582a0 UAT:0x140001581c0]
+2024/06/11 20:14:42 Starting the API call : {}
+2024/06/11 20:14:42 Initating the API Request
+2024/06/11 20:14:42 Service API : API Request Started 
+2024/06/11 20:14:42 Service API : HTTP GET call
+2024/06/11 20:14:42 Formatted Response:: {
+  "authtoken": "Bearer 1683",
+  "ResponseBody": "API handler",
+  "Method": "GET",
+  "port": "8445"
+}
+2024/06/11 20:16:12 Sidecard Authentication service started ....
+2024/06/11 20:16:12 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:16:12 Authentication handler initiation started
+2024/06/11 20:16:12 loading env config: SIT
+2024/06/11 20:16:12 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:16:12 loading env config: UAT
+2024/06/11 20:16:12 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:16:12 loading env config: PERF
+2024/06/11 20:16:12 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:16:12 loading env config: STAGE
+2024/06/11 20:16:12 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:16:12 loading env config: PROD
+2024/06/11 20:16:12 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:16:12 loading env config: DEV
+2024/06/11 20:16:12 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:16:58 Sidecard Authentication service started ....
+2024/06/11 20:16:58 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:16:58 Authentication handler initiation started
+2024/06/11 20:16:58 loading env config: DEV
+2024/06/11 20:16:58 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:16:58 loading env config: SIT
+2024/06/11 20:16:58 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:16:58 loading env config: UAT
+2024/06/11 20:16:58 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:16:58 loading env config: PERF
+2024/06/11 20:16:58 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:16:58 loading env config: STAGE
+2024/06/11 20:16:58 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:16:58 loading env config: PROD
+2024/06/11 20:16:58 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:17:50 Sidecard Authentication service started ....
+2024/06/11 20:17:50 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:17:50 Authentication handler initiation started
+2024/06/11 20:17:50 loading env config: UAT
+2024/06/11 20:17:50 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:17:50 loading env config: PERF
+2024/06/11 20:17:50 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:17:50 loading env config: STAGE
+2024/06/11 20:17:50 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:17:50 loading env config: PROD
+2024/06/11 20:17:50 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:17:50 loading env config: DEV
+2024/06/11 20:17:50 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:17:50 loading env config: SIT
+2024/06/11 20:17:50 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:17:54 HTTP Handler function execution started
+2024/06/11 20:17:54 Environment  : DEV
+2024/06/11 20:17:54 authHandlers Initalizing the token request for : DEV
+2024/06/11 20:17:54 Token url for: http://127.0.0.1:8080/generate-token
+2024/06/11 20:17:54 Auth Module : New token request initiated
+2024/06/11 20:17:54 authHandlers Initalizing the token request for1 : map[DEV:0x140000de380 PERF:0x140000de230 PROD:0x140000de310 SIT:0x140000de3f0 STAGE:0x140000de2a0 UAT:0x140000de1c0]
+2024/06/11 20:17:54 Starting the API call : {}
+2024/06/11 20:17:54 Initating the API Request
+2024/06/11 20:17:54 Service API : API Request Started 
+2024/06/11 20:17:54 Service API : HTTP GET call
+2024/06/11 20:17:54 Formatted Response:: {
+  "authtoken": "Bearer 4870",
+  "ResponseBody": "API handler",
+  "Method": "GET",
+  "port": "8445"
+}
+2024/06/11 20:18:27 Sidecard Authentication service started ....
+2024/06/11 20:18:27 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:18:27 Authentication handler initiation started
+2024/06/11 20:18:27 loading env config: PERF
+2024/06/11 20:18:27 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:18:27 loading env config: STAGE
+2024/06/11 20:18:27 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:18:27 loading env config: PROD
+2024/06/11 20:18:27 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:18:27 loading env config: DEV
+2024/06/11 20:18:27 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:18:27 loading env config: SIT
+2024/06/11 20:18:27 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:18:27 loading env config: UAT
+2024/06/11 20:18:27 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:18:31 Sidecard Authentication service started ....
+2024/06/11 20:18:31 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:18:31 Authentication handler initiation started
+2024/06/11 20:18:31 loading env config: DEV
+2024/06/11 20:18:31 Auth Module :  Authentication Handler initailizing:: DEV
+2024/06/11 20:18:31 loading env config: SIT
+2024/06/11 20:18:31 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:18:31 loading env config: UAT
+2024/06/11 20:18:31 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:18:31 loading env config: PERF
+2024/06/11 20:18:31 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:18:31 loading env config: STAGE
+2024/06/11 20:18:31 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:18:31 loading env config: PROD
+2024/06/11 20:18:31 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:21:20 Sidecard Authentication service started ....
+2024/06/11 20:21:20 Configuration file loaded sucessfully: /Users/bhumi/sidecarsvcs_4/sidecarauth/config.json
+2024/06/11 20:21:20 Authentication handler initiation started
+2024/06/11 20:21:20 loading env config: SIT
+2024/06/11 20:21:20 Auth Module :  Authentication Handler initailizing:: SIT
+2024/06/11 20:21:20 loading env config: UAT
+2024/06/11 20:21:20 Auth Module :  Authentication Handler initailizing:: UAT
+2024/06/11 20:21:20 loading env config: PERF
+2024/06/11 20:21:20 Auth Module :  Authentication Handler initailizing:: PERF
+2024/06/11 20:21:20 loading env config: STAGE
+2024/06/11 20:21:20 Auth Module :  Authentication Handler initailizing:: STAGE
+2024/06/11 20:21:20 loading env config: PROD
+2024/06/11 20:21:20 Auth Module :  Authentication Handler initailizing:: PROD
+2024/06/11 20:21:20 loading env config: DEV
+2024/06/11 20:21:20 Auth Module :  Authentication Handler initailizing:: DEV

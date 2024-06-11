@@ -1,6 +1,5 @@
 {
     "AuthConfig": {
-        "timeout" : 60,
         "DEV": {
             "TokenURL": "http://127.0.0.1:8080/generate-token",
             "AuthorizationHeader": "Basic 123abc"
@@ -39,13 +38,13 @@
     },
     "ServiceConfig": {
         "DEV": {
-            "ApiURL": "https://127.0.0.1:8445"
+            "ApiURL": "http://127.0.0.1:8445"
         },
         "SIT": {
-            "ApiURL": "https://127.0.0.1:8446"
+            "ApiURL": "http://127.0.0.1:8446"
         },
         "UAT": {
-            "ApiURL": "https://127.0.0.1:8447"
+            "ApiURL": "http://127.0.0.1:8447"
         },
         "PERF": {
             "ApiURL": "https://127.0.0.1:8448"

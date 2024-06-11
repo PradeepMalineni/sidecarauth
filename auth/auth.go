@@ -30,7 +30,7 @@ type ErrorResponse struct {
 
 // AuthHandler holds the state of the authentication process
 type AuthHandler struct {
-	tokenResponse TokenResponse
+	TokenResponse TokenResponse
 	config        config.AuthConfig
 	mu            sync.Mutex // Mutex for thread-safe operations
 }
@@ -47,7 +47,7 @@ func NewAuthHandler(env string, envConfig config.AuthConfig) *AuthHandler {
 func (a *AuthHandler) Initialize() error {
 	// Call the function to get the initial access token
 	logger.Log("Auth Module : getAccessToken func call")
-	err := a.getAccessToken()
+	err := a.GetOAuthToken()
 	if err != nil {
 		logger.LogF("Auth Module get Acesstoken Initialize error", err)
 		return err
@@ -56,37 +56,39 @@ func (a *AuthHandler) Initialize() error {
 
 }
 
+/*
 // GetAccessToken function to get the access token
-func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
-	// Lock to ensure thread-safe access
-	a.mu.Lock()
-	defer a.mu.Unlock()
-	logger.Log("Auth Module : GetAccessToken func call")
 
-	// Check if the token is expired or about to expire
-	now := time.Now().Unix()
-	if a.tokenResponse.AccessToken == "" || now >= a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt {
-		// Token is expired or about to expire, refresh it
-		logger.Log("Auth Module : GetAccessToken func call2")
+	func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
+		// Lock to ensure thread-safe access
+		a.mu.Lock()
+		defer a.mu.Unlock()
+		logger.Log("Auth Module : GetAccessToken func call")
 
-		err := a.getAccessToken()
-		if err != nil {
-			logger.LogF("Auth Module get Acesstoken error", err)
-			return TokenResponse{}, err
-		}
-	}
-	return a.tokenResponse, nil
-}
-
-func (a *AuthHandler) getAccessToken() error {
-	// Lock to ensure thread-safe access
-	a.mu.Lock()
-	defer a.mu.Unlock()
-	logger.LogF("Token data", a.tokenResponse)
-	if !isEmptyStruct(a.tokenResponse) {
-		logger.Log("Auth Module : No token found")
+		// Check if the token is expired or about to expire
 		now := time.Now().Unix()
-		if now < a.tokenResponse.ExpiresIn+a.tokenResponse.IssuedAt-60 { // 60 seconds before expiration
+		if a.TokenResponse.AccessToken == "" || now >= a.TokenResponse.ExpiresIn+a.TokenResponse.IssuedAt {
+			// Token is expired or about to expire, refresh it
+			logger.Log("Auth Module : GetAccessToken func call2")
+
+			err := a.GetOAuthToken()
+			if err != nil {
+				logger.LogF("Auth Module get Acesstoken error", err)
+				return TokenResponse{}, err
+			}
+		}
+		return a.TokenResponse, nil
+	}
+*/
+func (a *AuthHandler) GetOAuthToken() error {
+	// Lock to ensure thread-safe access
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	logger.LogF("Token url for", a.config.TokenURL)
+	if !isEmptyStruct(a.TokenResponse) {
+		logger.Log("Auth Module : Token exist and will check for token validity")
+		now := time.Now().Unix()
+		if now < a.TokenResponse.ExpiresIn+a.TokenResponse.IssuedAt-60 { // 60 seconds before expiration
 			// Token is not close to expiration, no need to refresh
 			return nil
 		}
@@ -134,7 +136,7 @@ func (a *AuthHandler) getAccessToken() error {
 		a.handleError(body)
 		return err
 	}
-	err = json.Unmarshal(body, &a.tokenResponse)
+	err = json.Unmarshal(body, &a.TokenResponse)
 	if err != nil {
 		logger.LogF("Error unmarshalling JSON:", err)
 		return err

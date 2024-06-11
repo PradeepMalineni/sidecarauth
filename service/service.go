@@ -13,7 +13,7 @@ import (
 
 // MakeRequest makes a request to the server
 func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string, headers http.Header) (string, error) {
-	logger.Log("Servie API : API Request Started ")
+	logger.Log("Service API : API Request Started ")
 
 	client := &http.Client{
 		Timeout: 10 * time.Second,
@@ -24,14 +24,14 @@ func MakeRequest(backendURL, authToken, httpMethod, contentType, payload string,
 	//var req *http.Request
 	//fmt.Println("BackendURL", backendURL)
 	if httpMethod == "GET" {
-		logger.Log("Servie API : HTTP GET call")
+		logger.Log("Service API : HTTP GET call")
 		req, err = http.NewRequest(httpMethod, backendURL, nil)
 		if err != nil {
 			return "", fmt.Errorf("error creating request: %v", err)
 		}
 	} else {
 		req, err = http.NewRequest(httpMethod, backendURL, bytes.NewBuffer([]byte(payload)))
-		logger.Log("Servie API : NOT HTTP GET call")
+		logger.Log("Service API : NOT HTTP GET call")
 		if err != nil {
 			return "", fmt.Errorf("error creating request: %v", err)
 		}
