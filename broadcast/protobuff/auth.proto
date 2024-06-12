@@ -16,5 +16,5 @@ message AuthResponse {
   TokenResponse token_response = 1;
 }
 
-// Specify the Go package name
-option go_package = "your_package_path/auth_proto";
+// Specify the Go package name 
+option go_package = "./grpc";

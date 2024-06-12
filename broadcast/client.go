@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	pb "path/to/proto"
+	pb "sidecarauth/grpc/grpc"
 
 	"google.golang.org/grpc"
 )
