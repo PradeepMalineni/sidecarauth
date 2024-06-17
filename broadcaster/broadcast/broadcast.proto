@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package broadcast;
+
+import "auth/oauth_token.proto";
+
+option go_package = "sidecarauth/broadcaster/protobuff/broadcast";
+
+service BroadcastService {
+    rpc BroadcastToken(OAuthTokenResponse) returns (stream BroadcastResponse);
+}
+
+message BroadcastResponse {
+    string message = 1;
+}
