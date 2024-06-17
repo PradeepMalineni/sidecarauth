@@ -84,13 +84,6 @@ func main() {
 		}
 		logger.LogF("authHandlers Initalizing the token request for ", env)
 
-		// Initialize AuthHandler with configuration values
-		/*err = authHandlers[env].Initialize()
-		if err != nil {
-			http.Error(w, "Error getting access token", http.StatusInternalServerError)
-			return
-		}*/
-
 		err = authHandlers[env].GetOAuthToken()
 		if err != nil {
 			http.Error(w, "Error getting access token", http.StatusInternalServerError)
@@ -98,12 +91,6 @@ func main() {
 		}
 
 		logger.LogF("authHandlers Initalizing the token request for1 ", authHandlers)
-
-		/*tokenResponse, err := newFunction(authHandlers, env)
-		if err != nil {
-			http.Error(w, "Error getting access token", http.StatusInternalServerError)
-			return
-		}*/
 
 		responseJSON, err := json.Marshal(authHandlers[env])
 		if err != nil {
@@ -173,8 +160,3 @@ func main() {
 
 	select {}
 }
-
-/*func newFunction(authHandlers map[string]*auth.AuthHandler, env string) (auth.TokenResponse, error) {
-	tokenResponse, err := authHandlers[env].GetAccessToken()
-	return tokenResponse, err
-}*/

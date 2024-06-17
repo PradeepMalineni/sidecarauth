@@ -42,44 +42,6 @@ func NewAuthHandler(env string, envConfig config.AuthConfig) *AuthHandler {
 		config: envConfig,
 	}
 }
-
-// Initialize is called with the configuration values
-func (a *AuthHandler) Initialize() error {
-	// Call the function to get the initial access token
-	logger.Log("Auth Module : getAccessToken func call")
-	err := a.GetOAuthToken()
-	if err != nil {
-		logger.LogF("Auth Module get Acesstoken Initialize error", err)
-		return err
-	}
-	return nil
-
-}
-
-/*
-// GetAccessToken function to get the access token
-
-	func (a *AuthHandler) GetAccessToken() (TokenResponse, error) {
-		// Lock to ensure thread-safe access
-		a.mu.Lock()
-		defer a.mu.Unlock()
-		logger.Log("Auth Module : GetAccessToken func call")
-
-		// Check if the token is expired or about to expire
-		now := time.Now().Unix()
-		if a.TokenResponse.AccessToken == "" || now >= a.TokenResponse.ExpiresIn+a.TokenResponse.IssuedAt {
-			// Token is expired or about to expire, refresh it
-			logger.Log("Auth Module : GetAccessToken func call2")
-
-			err := a.GetOAuthToken()
-			if err != nil {
-				logger.LogF("Auth Module get Acesstoken error", err)
-				return TokenResponse{}, err
-			}
-		}
-		return a.TokenResponse, nil
-	}
-*/
 func (a *AuthHandler) GetOAuthToken() error {
 	// Lock to ensure thread-safe access
 	a.mu.Lock()
