@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"os"
 	"sidecarauth/auth"
+	br "sidecarauth/broadcaster"
 	"sidecarauth/config"
 	"sidecarauth/service"
 	logger "sidecarauth/utility"
@@ -91,6 +92,11 @@ func main() {
 		}
 
 		logger.LogF("authHandlers Initalizing the token request for1 ", authHandlers)
+		logger.LogF("Token response", authHandlers[env].TokenResponse)
+
+		//Start the GRPC server and Clients here.
+
+		br.Dailer()
 
 		responseJSON, err := json.Marshal(authHandlers[env])
 		if err != nil {

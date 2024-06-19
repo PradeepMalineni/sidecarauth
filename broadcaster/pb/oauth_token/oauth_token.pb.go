@@ -4,7 +4,7 @@
 // 	protoc        v5.27.0
 // source: auth/oauth_token.proto
 
-package oauth_token
+package broadcast
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
