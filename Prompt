@@ -28,3 +28,7 @@ OUTPUT FORMAT (always):
    - No new deps added?
    - Changes limited to provided file(s)?
    - Patch ≤50 changed lines?
+
+Please reduce cognitive complexity of <func_name> from <current> to <= <target>.
+Preferred tactics: early returns, extracting small pure helpers (<20 lines) with docstrings, replacing nested if/elif with guard clauses or a dispatch map where equivalent.
+Do not alter behavior or API.
