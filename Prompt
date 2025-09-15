@@ -1,0 +1,1 @@
+Fix Sonar issues in this Python code with safe, minimal refactors: keep public API and behavior identical (same inputs/outputs, logs, exceptions, data shapes), no new deps, ≤50 changed lines, helpers in same module. Return: 1) Plan, 2) Patch (unified diff), 3) Rationale, 4) Behavior Preservation Notes, 5) Guardrail check (Y/N).
