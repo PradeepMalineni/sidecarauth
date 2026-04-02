@@ -1,0 +1,158 @@
+Opening Frame (Set the Tone)
+
+Start strong but professional:
+	•	“We appreciate the effort to standardize the change process — that’s definitely needed.”
+	•	“However, some of these points are too rigid or misaligned with how ESGA/DataPower actually operates in production.”
+	•	“Let’s align on a practical, scalable, and ownership-driven model.”
+
+⸻
+
+⚖️ 1. Change Review Window (Tue/Thu Constraint)
+
+Your Position: Flexibility is mandatory
+	•	“Scheduled reviews (Tue/Thu) work for planned changes — we agree.”
+	•	“But production environments are not predictable.”
+	•	“We need a defined exception path for urgent/unplanned changes.”
+	•	“Rigid enforcement will delay critical fixes and increase risk.”
+
+👉 Close with:
+	•	“We need flexibility built into the process — not case-by-case negotiation.”
+
+⸻
+
+⚙️ 2. Code Freeze / Post-Review Changes (Major Pushback)
+
+Your Position: This rule is not practical for DataPower
+	•	“The assumption here is that ESGA changes are code changes — they are not.”
+	•	“These are configuration-based deployments, not traditional code pipelines.”
+
+Key points:
+	•	“DataPower is not integrated with EPL/Git pipelines.”
+	•	“Changes often require package updates to avoid overwriting prior deployments.”
+	•	“This can happen even after approval due to parallel changes in the same domain.”
+
+👉 Critical statement:
+	•	“Blocking a change due to necessary package alignment is operationally unsafe.”
+
+👉 Your proposal:
+	•	“We agree no changes on the day of implementation.”
+	•	“But updates before deployment day must be allowed and revalidated logically.”
+
+⸻
+
+📦 3. Ownership Shift to Production Support (Very Important)
+
+This is your strategic push — don’t dilute it.
+	•	“Once UAT is completed, the ownership should transition fully to Production Support.”
+	•	“CR approval, execution, validation, and closure should be owned end-to-end by Production Support.”
+
+👉 Reinforce clearly:
+	•	“Engineering should not be expected to manage production workflows.”
+	•	“Engineering will support only in case of issues, not run operations.”
+
+⸻
+
+📊 4. Confluence / Documentation Expectations
+
+Vendor Contacts
+	•	“Agree this is required.”
+	•	“But going forward, Production Support should gather and maintain this, not Engineering.”
+
+⸻
+
+📉 Visio Diagrams (Strong Pushback)
+	•	“Creating Visio diagrams for every API is not scalable or meaningful.”
+	•	“Most integrations follow standard patterns — diagrams become repetitive and low-value.”
+
+👉 Strong line:
+	•	“This is manual overhead with no operational benefit.”
+
+👉 Alternative:
+	•	“We should move toward centralized architecture views + runtime observability (Splunk).”
+
+⸻
+
+🔍 Splunk Queries
+	•	“Providing static queries is outdated.”
+	•	“Production Support should use Splunk directly for analysis.”
+
+👉 Strong positioning:
+	•	“We should enable self-service observability, not dependency on Engineering.”
+
+⸻
+
+🔐 5. VFD Certificates / Credentials (Hard Stop)
+	•	“This requirement is unclear and not actionable.”
+	•	“If the expectation is to document all certificate-level details per vendor — that is not feasible.”
+
+👉 Clear boundary:
+	•	“This must be handled directly with VFD / security teams.”
+	•	“Engineering cannot own external certificate documentation.”
+
+⸻
+
+🚀 6. Load Testing Requirement
+	•	“Not all vendors perform load testing.”
+	•	“This cannot be a mandatory precondition for every change.”
+
+👉 Position:
+	•	“If required, Production Support should coordinate with vendors.”
+	•	“Engineering cannot enforce or chase this.”
+
+⸻
+
+🔄 7. Post-Implementation Validation
+	•	“Once change is in UAT, transition ownership.”
+	•	“Post-implementation validation should be driven by Production Support with partners.”
+
+👉 Reinforce:
+	•	“Engineering is not the production operator.”
+
+⸻
+
+🛠️ 8. JIRA / Alerts / VIP / Monitoring Tasks
+	•	“These are clearly production responsibilities.”
+
+👉 Strong line:
+	•	“Alerting, onboarding, monitoring — all fall under Production Support ownership.”
+
+⸻
+
+📧 9. Daily Email / Status Updates (Firm Stand)
+	•	“We will not continue manual email confirmations.”
+	•	“This should be tracked via CR tools / systems of record.”
+
+👉 Close firmly:
+	•	“Production Support should own validation and closure.”
+
+⸻
+
+🔚 Closing Statement (Very Important)
+
+End with clarity and authority:
+	•	“Overall, we are aligned on governance.”
+	•	“But the model needs to reflect real operational boundaries and scalability.”
+	•	“Key ask from our side:”
+	•	Flexibility for urgent changes
+	•	Clear ownership transition after UAT
+	•	Removal of non-scalable manual tasks
+	•	Enable Production Support as true owners
+
+👉 Final punch:
+	•	“We are happy to align — but the process must work in reality, not just on paper.”
+
+⸻
+
+🧠 Pro Tip for You (Strategy)
+
+In the meeting:
+	•	Don’t argue point-by-point aggressively
+	•	Group them into 3 themes:
+
+🔹 1. Flexibility vs Rigidity
+
+🔹 2. Engineering vs Production Ownership
+
+🔹 3. Scalability vs Manual Overhead
+
+👉 This makes you sound strategic, not defensive
